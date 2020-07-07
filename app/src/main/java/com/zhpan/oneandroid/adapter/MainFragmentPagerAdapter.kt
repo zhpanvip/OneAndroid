@@ -1,11 +1,13 @@
 package com.zhpan.oneandroid.adapter
 
 import android.util.SparseArray
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.zhpan.library.base.BaseVMFragment
+import com.zhpan.library.base.BaseViewModel
 import com.zhpan.oneandroid.ui.*
-
 
 /**
  * <pre>
@@ -16,7 +18,7 @@ import com.zhpan.oneandroid.ui.*
 class MainFragmentPagerAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
 
-    private val fragments: SparseArray<BaseFragment> = SparseArray()
+    private val fragments: SparseArray<BaseVMFragment<BaseViewModel,ViewDataBinding>> = SparseArray()
 
     override fun createFragment(position: Int): Fragment {
         var fragment: Fragment

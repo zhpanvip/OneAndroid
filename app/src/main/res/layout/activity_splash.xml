@@ -9,12 +9,15 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_view"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/dp_200"
+        android:layout_height="@dimen/dp_200"
         android:scaleType="centerCrop"
-        app:lottie_loop="false"
-        app:lottie_speed="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
-        app:lottie_rawRes="@raw/rocket_launch"
-        android:layout_height="match_parent"/>
+        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/robot_launch" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,9 @@ package com.zhpan.oneandroid.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.databinding.ViewDataBinding
+import com.zhpan.library.base.BaseVMFragment
+import com.zhpan.library.base.BaseViewModel
 import com.zhpan.oneandroid.R
 
 
@@ -11,7 +14,7 @@ import com.zhpan.oneandroid.R
  *   Description:
  * </pre>
  */
-class SquareFragment : BaseFragment() {
+class SquareFragment : BaseVMFragment<BaseViewModel,ViewDataBinding>() {
 
     companion object{
         fun getInstance(): SquareFragment {
@@ -19,14 +22,14 @@ class SquareFragment : BaseFragment() {
         }
     }
 
-    override val layout: Int
-        get() = R.layout.fragment_home
-
-    override fun initTitle() {
-
+    override fun initFragment() {
     }
 
-    override fun initView(savedInstanceState: Bundle?, view: View) {
+    override fun onViewInflate() {
+    }
+
+    override fun getLayoutId(): Int {
+       return R.layout.fragment_home
     }
 
 
