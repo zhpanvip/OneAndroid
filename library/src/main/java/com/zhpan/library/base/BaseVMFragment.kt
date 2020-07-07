@@ -19,7 +19,7 @@ import kotlinx.coroutines.cancel
  *   Description:
  * </pre>
  */
-abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment(),
+abstract class BaseVMFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment(),
     CoroutineScope by MainScope() {
     protected var mBinding: VB? = null
     override fun onCreateView(

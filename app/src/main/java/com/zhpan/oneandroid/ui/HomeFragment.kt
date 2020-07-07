@@ -2,6 +2,7 @@ package com.zhpan.oneandroid.ui
 
 import android.os.Bundle
 import android.view.View
+import com.zhpan.library.base.BaseVMFragment
 import com.zhpan.oneandroid.R
 
 
@@ -11,7 +12,7 @@ import com.zhpan.oneandroid.R
  *   Description:
  * </pre>
  */
-class HomeFragment : BaseFragment() {
+class HomeFragment : BaseVMFragment<>() {
 
     companion object{
         fun getInstance(): HomeFragment {
