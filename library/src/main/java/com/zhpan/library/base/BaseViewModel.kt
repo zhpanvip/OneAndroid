@@ -15,7 +15,7 @@ import kotlinx.coroutines.withContext
  *   Description:
  * </pre>
  */
-class BaseViewModel: ViewModel() {
+open class BaseViewModel: ViewModel() {
 
 
     open class UiState<T>(

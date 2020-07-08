@@ -17,15 +17,16 @@ import kotlinx.coroutines.cancel
  *   Description:
  * </pre>
  */
-abstract class BaseActivity<VM : BaseViewModel, VB : ViewDataBinding> : AppCompatActivity(),CoroutineScope by MainScope() {
+abstract class BaseActivity<VM : BaseViewModel, VB : ViewDataBinding> : AppCompatActivity(),
+    CoroutineScope by MainScope() {
 
     protected val mBinding: VB by lazy {
         DataBindingUtil.setContentView(this, getLayoutId()) as VB
     }
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-        mBinding.lifecycleOwner=this
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mBinding.lifecycleOwner = this
         onActivityCreated(savedInstanceState)
     }
 
@@ -35,7 +36,7 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewDataBinding> : AppCompa
         mBinding.unbind()
     }
 
-   abstract fun onActivityCreated(savedInstanceState: Bundle?)
+    abstract fun onActivityCreated(savedInstanceState: Bundle?)
 
     abstract fun getLayoutId(): Int
 

@@ -1,7 +1,5 @@
 package com.zhpan.oneandroid.ui
 
-import android.os.Bundle
-import android.view.View
 import androidx.databinding.ViewDataBinding
 import com.zhpan.library.base.BaseVMFragment
 import com.zhpan.library.base.BaseViewModel

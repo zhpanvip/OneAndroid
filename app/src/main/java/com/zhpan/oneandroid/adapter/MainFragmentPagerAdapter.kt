@@ -18,7 +18,7 @@ import com.zhpan.oneandroid.ui.*
 class MainFragmentPagerAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
 
-    private val fragments: SparseArray<BaseVMFragment<BaseViewModel,ViewDataBinding>> = SparseArray()
+    private val fragments: SparseArray<BaseVMFragment<in BaseViewModel,in ViewDataBinding>> = SparseArray()
 
     override fun createFragment(position: Int): Fragment {
         var fragment: Fragment

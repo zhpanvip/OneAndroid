@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">One Android</string>
+    <string name="app_name">玩安卓</string>
+    <string name="my_jifen">我的积分</string>
+    <string name="my_collect">我的收藏</string>
+    <string name="my_share">我的分享</string>
+    <string name="setting">设置</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
