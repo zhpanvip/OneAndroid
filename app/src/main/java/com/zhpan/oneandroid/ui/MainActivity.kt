@@ -1,16 +1,12 @@
 package com.zhpan.oneandroid.ui
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 import androidx.viewpager2.widget.ViewPager2
-import com.blankj.utilcode.util.LogUtils
 import com.zhpan.library.base.BaseActivity
 import com.zhpan.library.base.BaseViewModel
 import com.zhpan.oneandroid.R
-import com.zhpan.oneandroid.adapter.MainFragmentPagerAdapter
+import com.zhpan.oneandroid.adapter.MainFragmentStateAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import com.zhpan.oneandroid.databinding.ActivityMainBinding
 
@@ -23,7 +19,7 @@ class MainActivity : BaseActivity<BaseViewModel,ActivityMainBinding>() {
 
     private fun initView() {
         with(viewPager2) {
-            adapter = MainFragmentPagerAdapter(this@MainActivity)
+            adapter = MainFragmentStateAdapter(this@MainActivity)
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)

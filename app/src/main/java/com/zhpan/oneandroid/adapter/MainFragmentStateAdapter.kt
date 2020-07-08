@@ -13,12 +13,13 @@ import com.zhpan.oneandroid.ui.*
  * <pre>
  * Created by zhangpan on 2019-12-05.
  * Description:
-</pre> *
+ *</pre>
  */
-class MainFragmentPagerAdapter(fragmentActivity: FragmentActivity) :
+class MainFragmentStateAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
 
-    private val fragments: SparseArray<BaseVMFragment<in BaseViewModel,in ViewDataBinding>> = SparseArray()
+    private val fragments: SparseArray<BaseVMFragment<in BaseViewModel, in ViewDataBinding>> =
+        SparseArray()
 
     override fun createFragment(position: Int): Fragment {
         var fragment: Fragment
