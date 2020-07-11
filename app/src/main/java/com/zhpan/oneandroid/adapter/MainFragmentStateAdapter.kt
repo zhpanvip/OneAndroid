@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.zhpan.library.base.BaseVMFragment
 import com.zhpan.library.base.BaseViewModel
+import com.zhpan.oneandroid.app.home.HomeFragment
 import com.zhpan.oneandroid.ui.*
 
 /**
@@ -18,7 +19,7 @@ import com.zhpan.oneandroid.ui.*
 class MainFragmentStateAdapter(fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
 
-    private val fragments: SparseArray<BaseVMFragment<in BaseViewModel, in ViewDataBinding>> =
+    private val fragments: SparseArray<BaseVMFragment<out BaseViewModel, out ViewDataBinding>> =
         SparseArray()
 
     override fun createFragment(position: Int): Fragment {

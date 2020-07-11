@@ -20,7 +20,7 @@ class SquareFragment : BaseVMFragment<BaseViewModel,ViewDataBinding>() {
         }
     }
 
-    override fun initFragment() {
+    override fun initView() {
     }
 
     override fun onViewInflate() {

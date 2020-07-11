@@ -43,4 +43,6 @@ ext {
     rxlifecycle='2.2.1'
     gsonVersion = '2.8.0'
     butterknifeVersion = '8.5.1'
+
+    baseRecyclerViewAdapterHelper="2.9.50"
 }

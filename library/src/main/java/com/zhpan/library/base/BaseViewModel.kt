@@ -17,7 +17,6 @@ import kotlinx.coroutines.withContext
  */
 open class BaseViewModel: ViewModel() {
 
-
     open class UiState<T>(
         val isLoading: Boolean = false,
         val isRefresh: Boolean = false,

@@ -22,6 +22,7 @@ import kotlinx.coroutines.cancel
 abstract class BaseVMFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment(),
     CoroutineScope by MainScope() {
     protected var mBinding: VB? = null
+    protected var mViewModel: VM? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -44,7 +45,7 @@ abstract class BaseVMFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragme
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mBinding?.lifecycleOwner = this
-        initFragment()
+        initView()
     }
 
     override fun onDestroy() {
@@ -58,7 +59,9 @@ abstract class BaseVMFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragme
         return ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(clazz)
     }
 
-    abstract fun initFragment()
+
+
+    abstract fun initView()
 
     abstract fun onViewInflate()
 
