@@ -44,5 +44,5 @@ ext {
     gsonVersion = '2.8.0'
     butterknifeVersion = '8.5.1'
 
-    baseRecyclerViewAdapterHelper="2.9.50"
+    baseRecyclerViewAdapterHelper="3.0.4"
 }

@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:binding="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-            name="viewModel"
-            type="com.zhpan.oneandroid.app.home.HomeViewModel" />
-
         <variable
             name="adapter"
             type="com.zhpan.oneandroid.app.home.HomeAdapter" />
@@ -18,12 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            bind:adapter="@{adapter}"
-            binding:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:adapter="@{adapter}"
+            binding:listitem="@layout/item_article" />
     </FrameLayout>
 </layout>

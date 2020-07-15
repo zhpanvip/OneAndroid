@@ -1,9 +1,11 @@
 package com.zhpan.oneandroid.app.home
 
-import com.zhpan.library.base.BaseBindAdapter
+import androidx.databinding.DataBindingUtil
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.zhpan.oneandroid.module.request.Article
-import com.zhpan.oneandroid.BR
 import com.zhpan.oneandroid.R
+import com.zhpan.oneandroid.databinding.ItemArticleBinding
 
 /**
  * <pre>
@@ -12,10 +14,16 @@ import com.zhpan.oneandroid.R
 </pre> *
  */
 internal class HomeAdapter(layoutId: Int = R.layout.item_article) :
-    BaseBindAdapter<Article>(layoutId, BR.article) {
+    BaseQuickAdapter<Article, BaseViewHolder>(layoutId) {
 
-    override fun convert(helper: BindViewHolder, item: Article) {
-        super.convert(helper, item)
-        helper.setText(R.id.tv_title,item.title)
+    override fun onItemViewHolderCreated(viewHolder: BaseViewHolder, viewType: Int) {
+        super.onItemViewHolderCreated(viewHolder, viewType)
+        DataBindingUtil.bind<ItemArticleBinding>(viewHolder.itemView)
+    }
+
+    override fun convert(holder: BaseViewHolder, item: Article) {
+        val binding = holder.getBinding<ItemArticleBinding>()
+        binding?.article = item
+        binding?.executePendingBindings()
     }
 }

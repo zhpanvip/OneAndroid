@@ -3,9 +3,7 @@ package com.zhpan.oneandroid.app.home
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.library.base.BaseVMFragment
-import com.zhpan.oneandroid.BR
 import com.zhpan.oneandroid.R
 import com.zhpan.oneandroid.databinding.FragmentHomeBinding
 import com.zhpan.oneandroid.module.request.ArticleWrapper
@@ -38,21 +36,17 @@ class HomeFragment : BaseVMFragment<HomeViewModel, FragmentHomeBinding>() {
             ViewModelProvider(requireActivity(), HomeViewModelFactory(HomeRepository())).get(
                 HomeViewModel::class.java
             )
-        mBinding?.run {
-            setVariable(BR.adapter, articleAdapter)
-            setVariable(BR.viewModel, mViewModel)
-        }
-        articleAdapter.apply {
-            addHeaderView(mBannerViewPager)
+        mBinding?.apply {
+            adapter = articleAdapter
         }
         mViewModel?.getHomeArticles(0)
             ?.observe(viewLifecycleOwner, object : Observer<ArticleWrapper> {
                 override fun onChanged(t: ArticleWrapper) {
                     mBinding?.adapter?.apply {
                         addData(t.datas)
-                        loadMoreComplete()
                         notifyDataSetChanged()
                     }
+
                 }
             })
     }
