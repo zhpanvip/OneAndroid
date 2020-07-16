@@ -2,6 +2,7 @@ package com.zhpan.oneandroid.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.zhpan.library.base.BaseActivity
 import com.zhpan.library.base.BaseViewModel

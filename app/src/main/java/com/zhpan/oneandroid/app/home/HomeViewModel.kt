@@ -2,6 +2,7 @@ package com.zhpan.oneandroid.app.home
 
 import androidx.lifecycle.MutableLiveData
 import com.zhpan.library.base.BaseViewModel
+import com.zhpan.library.base.IFragmentHost
 import com.zhpan.oneandroid.module.request.ArticleWrapper
 
 
@@ -13,7 +14,11 @@ import com.zhpan.oneandroid.module.request.ArticleWrapper
  */
 class HomeViewModel(private val homeRepository: HomeRepository) : BaseViewModel() {
 
-    fun getHomeArticles(page: Int): MutableLiveData<ArticleWrapper> {
-        return homeRepository.getHomeArticles(page)
+    fun getHomeArticles(
+        page: Int,
+        fragmentHost: IFragmentHost,
+        showLoading: Boolean
+    ): MutableLiveData<ArticleWrapper> {
+        return homeRepository.getHomeArticles(page, fragmentHost, showLoading)
     }
 }

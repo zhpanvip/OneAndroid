@@ -1,11 +1,11 @@
 package com.zhpan.library.base
 
 import android.os.Bundle
-import android.os.PersistableBundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -17,8 +17,8 @@ import kotlinx.coroutines.cancel
  *   Description:
  * </pre>
  */
-abstract class BaseActivity<VM : BaseViewModel, VB : ViewDataBinding> : AppCompatActivity(),
-    CoroutineScope by MainScope() {
+abstract class BaseActivity<VM : BaseViewModel, VB : ViewDataBinding> : RxAppCompatActivity(),
+    CoroutineScope by MainScope(), IActivityHost {
 
     protected val mBinding: VB by lazy {
         DataBindingUtil.setContentView(this, getLayoutId()) as VB
@@ -41,4 +41,8 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewDataBinding> : AppCompa
     abstract fun getLayoutId(): Int
 
     fun getViewModel(clazz: Class<VM>): VM = ViewModelProvider(this).get(clazz)
+
+    override fun getActivity(): FragmentActivity? {
+        return this
+    }
 }

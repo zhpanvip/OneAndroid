@@ -1,12 +1,10 @@
 package com.zhpan.oneandroid.app.home
 
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.zhpan.library.base.BaseVMFragment
+import com.zhpan.library.base.BaseFragment
 import com.zhpan.oneandroid.R
 import com.zhpan.oneandroid.databinding.FragmentHomeBinding
-import com.zhpan.oneandroid.module.request.ArticleWrapper
 
 /**
  * <pre>
@@ -14,7 +12,7 @@ import com.zhpan.oneandroid.module.request.ArticleWrapper
  *   Description:
  * </pre>
  */
-class HomeFragment : BaseVMFragment<HomeViewModel, FragmentHomeBinding>() {
+class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
 
     companion object {
         fun getInstance(): HomeFragment {
@@ -26,11 +24,6 @@ class HomeFragment : BaseVMFragment<HomeViewModel, FragmentHomeBinding>() {
         HomeAdapter()
     }
 
-    private val mBannerViewPager by lazy {
-        View(context)
-    }
-
-
     override fun initView() {
         mViewModel =
             ViewModelProvider(requireActivity(), HomeViewModelFactory(HomeRepository())).get(
@@ -39,16 +32,14 @@ class HomeFragment : BaseVMFragment<HomeViewModel, FragmentHomeBinding>() {
         mBinding?.apply {
             adapter = articleAdapter
         }
-        mViewModel?.getHomeArticles(0)
-            ?.observe(viewLifecycleOwner, object : Observer<ArticleWrapper> {
-                override fun onChanged(t: ArticleWrapper) {
+        mViewModel?.getHomeArticles(0, this@HomeFragment, true)
+            ?.observe(viewLifecycleOwner,
+                Observer { response ->
                     mBinding?.adapter?.apply {
-                        addData(t.datas)
+                        addData(response.datas)
                         notifyDataSetChanged()
                     }
-
-                }
-            })
+                })
     }
 
     override fun onViewInflate() {

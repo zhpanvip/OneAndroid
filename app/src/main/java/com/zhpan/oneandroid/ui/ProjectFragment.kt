@@ -1,7 +1,7 @@
 package com.zhpan.oneandroid.ui
 
 import androidx.databinding.ViewDataBinding
-import com.zhpan.library.base.BaseVMFragment
+import com.zhpan.library.base.BaseFragment
 import com.zhpan.library.base.BaseViewModel
 import com.zhpan.oneandroid.R
 
@@ -12,7 +12,7 @@ import com.zhpan.oneandroid.R
  *   Description:
  * </pre>
  */
-class ProjectFragment : BaseVMFragment<BaseViewModel, ViewDataBinding>() {
+class ProjectFragment : BaseFragment<BaseViewModel, ViewDataBinding>() {
 
     companion object{
         fun getInstance(): ProjectFragment {

@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.trello.rxlifecycle2.components.support.RxFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
-
 
 /**
  * <pre>
@@ -19,7 +18,7 @@ import kotlinx.coroutines.cancel
  *   Description:
  * </pre>
  */
-abstract class BaseVMFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment(),
+abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : RxFragment(), IFragmentHost,
     CoroutineScope by MainScope() {
     protected var mBinding: VB? = null
     protected var mViewModel: VM? = null
@@ -58,7 +57,6 @@ abstract class BaseVMFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragme
     fun getViewModel(clazz: Class<VM>): VM {
         return ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(clazz)
     }
-
 
 
     abstract fun initView()
