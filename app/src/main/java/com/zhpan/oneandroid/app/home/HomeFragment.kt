@@ -2,6 +2,7 @@ package com.zhpan.oneandroid.app.home
 
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.zhpan.library.base.BaseFragment
 import com.zhpan.oneandroid.R
 import com.zhpan.oneandroid.databinding.FragmentHomeBinding
@@ -25,6 +26,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     }
 
     override fun initView() {
+        setRefreshLayout(R.id.refresh_layout)
         mViewModel =
             ViewModelProvider(requireActivity(), HomeViewModelFactory(HomeRepository())).get(
                 HomeViewModel::class.java
@@ -32,17 +34,33 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         mBinding?.apply {
             adapter = articleAdapter
         }
-        mViewModel?.getHomeArticles(0, this@HomeFragment, true)
+        fetchData(isRefresh = true, showLoading = true)
+    }
+
+    private fun fetchData(isRefresh: Boolean, showLoading: Boolean) {
+        mViewModel?.getHomeArticles(this@HomeFragment, showLoading, isRefresh)
             ?.observe(viewLifecycleOwner,
                 Observer { response ->
                     mBinding?.adapter?.apply {
-                        addData(response.datas)
-                        notifyDataSetChanged()
+                        if (response != null) {
+                            if (isRefresh) {
+                                replaceData(response.datas)
+                            } else {
+                                addData(response.datas)
+                            }
+                            notifyDataSetChanged()
+                        }
+                        mRefreshLayout?.finishRefresh()
                     }
                 })
+
     }
 
     override fun onViewInflate() {
+    }
+
+    override fun onRefresh(refreshLayout: RefreshLayout) {
+        fetchData(isRefresh = true, showLoading = false)
     }
 
     override fun getLayoutId(): Int {

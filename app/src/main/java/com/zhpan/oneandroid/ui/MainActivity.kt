@@ -27,6 +27,7 @@ class MainActivity : BaseActivity<BaseViewModel,ActivityMainBinding>() {
                     bottomNavigationView.menu.getItem(position).isChecked = true
                 }
             })
+            offscreenPageLimit=4
         }
         toolbar.apply {
             title = getString(R.string.app_name)

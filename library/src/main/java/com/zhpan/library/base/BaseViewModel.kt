@@ -15,13 +15,15 @@ import kotlinx.coroutines.withContext
  *   Description:
  * </pre>
  */
-open class BaseViewModel: ViewModel() {
+open class BaseViewModel : ViewModel() {
+
+    open var page: Int = 0
 
     open class UiState<T>(
         val isLoading: Boolean = false,
         val isRefresh: Boolean = false,
         val isSuccess: T? = null,
-        val isError: String?= null
+        val isError: String? = null
     )
 
 
@@ -31,7 +33,6 @@ open class BaseViewModel: ViewModel() {
         var showSuccess: T? = null,
         var showEnd: Boolean = false, // 加载更多
         var isRefresh: Boolean = false // 刷新
-
     )
 
     val mException: MutableLiveData<Throwable> = MutableLiveData()

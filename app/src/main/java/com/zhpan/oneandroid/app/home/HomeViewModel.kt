@@ -15,10 +15,14 @@ import com.zhpan.oneandroid.module.request.ArticleWrapper
 class HomeViewModel(private val homeRepository: HomeRepository) : BaseViewModel() {
 
     fun getHomeArticles(
-        page: Int,
         fragmentHost: IFragmentHost,
-        showLoading: Boolean
+        showLoading: Boolean, isRefresh: Boolean
     ): MutableLiveData<ArticleWrapper> {
+        if (isRefresh) {
+            page = 0
+        } else {
+            ++page
+        }
         return homeRepository.getHomeArticles(page, fragmentHost, showLoading)
     }
 }

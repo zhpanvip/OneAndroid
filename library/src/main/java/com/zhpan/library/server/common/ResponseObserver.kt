@@ -66,11 +66,13 @@ abstract class ResponseObserver<T> : Observer<T> {
     /**
      * 服务器返回数据，但响应码不为1000
      */
-    fun onFail(message: String?) {
-        ToastUtils.showShort(message)
+    open fun onFail(message: String?) {
+        if (message != null) {
+            ToastUtils.showShort(message)
+        }
     }
 
-    fun onFinish() {}
+    open fun onFinish() {}
 
     /**
      * 请求异常
@@ -101,6 +103,7 @@ abstract class ResponseObserver<T> : Observer<T> {
             )
             else -> ToastUtils.showShort(R.string.unknown_error, Toast.LENGTH_SHORT)
         }
+        onFail(null)
     }
 
     /**

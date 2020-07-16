@@ -23,8 +23,14 @@ class HomeRepository : BaseRepository() {
         getApiService()?.getHomeArticles(page)
             ?.compose(RxUtils.rxSchedulerHelper(fragmentHost, showLoading))
             ?.subscribe(object : ResponseObserver<ArticleWrapper>() {
+
                 override fun onSuccess(response: ArticleWrapper?) {
                     liveData.value = response
+                }
+
+                override fun onFail(message: String?) {
+                    super.onFail(message)
+                    liveData.value=null
                 }
 
             })
