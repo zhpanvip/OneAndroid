@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.zhpan.library.base.BaseViewModel
 import com.zhpan.library.base.IFragmentHost
 import com.zhpan.oneandroid.module.request.ArticleWrapper
+import com.zhpan.oneandroid.module.response.BannerBean
 
 
 /**
@@ -24,5 +25,9 @@ class HomeViewModel(private val homeRepository: HomeRepository) : BaseViewModel(
             ++page
         }
         return homeRepository.getHomeArticles(page, fragmentHost, showLoading)
+    }
+
+    fun getBannerData(fragmentHost: IFragmentHost): MutableLiveData<List<BannerBean>> {
+        return homeRepository.getBannerData(fragmentHost)
     }
 }

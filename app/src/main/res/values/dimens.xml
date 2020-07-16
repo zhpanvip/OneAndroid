@@ -425,6 +425,7 @@
     <dimen name="sp_40">40sp</dimen>
     <dimen name="sp_42">42sp</dimen>
     <dimen name="sp_48">48sp</dimen>
+    <dimen name="common_radius">@dimen/dp_10</dimen>
 
 
 </resources>

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#5187f4</color>
-    <color name="colorPrimaryDark">#2056C3</color>
-    <color name="colorAccent">#C30424</color>
+
     <color name="colorTextPrimary">@color/gray_7a</color>
     <color name="colorTextPrimaryDark">@color/gray_2a</color>
     <color name="background">@color/gray_f7</color>
@@ -36,4 +34,6 @@
     <color name="alpha_85_white">#D9FFFFFF</color>
     <color name="alpha_90_white">#E6FFFFFF</color>
     <color name="alpha_95_white">#F2FFFFFF</color>
+    <color name="color_slider_checked">#0A9DDE</color>
+    <color name="color_slider_normal">#B3E1F5</color>
 </resources>

@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.zhpan.library.base.IFragmentHost
 import com.zhpan.library.server.common.ResponseObserver
 import com.zhpan.oneandroid.module.request.ArticleWrapper
+import com.zhpan.oneandroid.module.response.BannerBean
 import com.zhpan.oneandroid.repository.BaseRepository
 import com.zhpan.oneandroid.utils.RxUtils
 
@@ -30,9 +31,29 @@ class HomeRepository : BaseRepository() {
 
                 override fun onFail(message: String?) {
                     super.onFail(message)
-                    liveData.value=null
+                    liveData.value = null
                 }
 
+            })
+        return liveData
+    }
+
+    fun getBannerData(
+        fragmentHost: IFragmentHost
+    ): MutableLiveData<List<BannerBean>> {
+        val liveData: MutableLiveData<List<BannerBean>> = MutableLiveData()
+        getApiService()?.getBannerData()
+            ?.compose(RxUtils.rxSchedulerHelper(fragmentHost, false))
+            ?.subscribe(object : ResponseObserver<List<BannerBean>>() {
+
+                override fun onSuccess(response: List<BannerBean>?) {
+                    liveData.value = response
+                }
+
+                override fun onFail(message: String?) {
+                    super.onFail(message)
+                    liveData.value = null
+                }
             })
         return liveData
     }

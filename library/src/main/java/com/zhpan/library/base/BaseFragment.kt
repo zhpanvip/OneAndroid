@@ -82,7 +82,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : RxFragme
     //  获取刷新头
     protected open fun getRefreshHeader(): MaterialHeader {
         val materialHeader = MaterialHeader(context)
-        materialHeader.setColorSchemeResources(R.color.design_default_color_primary)
+        materialHeader.setColorSchemeResources(R.color.colorPrimaryDark)
         return materialHeader
     }
 
