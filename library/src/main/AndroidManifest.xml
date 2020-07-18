@@ -2,4 +2,7 @@
     package="com.zhpan.library" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <application>
+        <activity android:name=".base.WebViewActivity" />
+    </application>
 </manifest>

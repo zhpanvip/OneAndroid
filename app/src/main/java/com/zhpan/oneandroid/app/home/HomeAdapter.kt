@@ -22,8 +22,7 @@ internal class HomeAdapter(layoutId: Int = R.layout.item_article) :
     }
 
     override fun convert(holder: BaseViewHolder, item: Article) {
-        val binding = holder.getBinding<ItemArticleBinding>()
-        binding?.article = item
-        binding?.executePendingBindings()
+        DataBindingUtil.getBinding<ItemArticleBinding>(holder.itemView)?.article = item
+//        binding?.executePendingBindings()
     }
 }

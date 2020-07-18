@@ -1,5 +1,7 @@
 package com.zhpan.oneandroid.module.response
 
+import com.zhpan.oneandroid.R
+
 /**
  * <pre>
  * Created by zhpan on 2020/7/16.
@@ -16,5 +18,6 @@ class BannerBean {
     var type = 0
     var url: String? = null
     var drawable = 0
+    var placeholder= R.drawable.ic_launcher_background
 
 }

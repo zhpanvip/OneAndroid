@@ -2,22 +2,17 @@ package com.zhpan.oneandroid.app.home
 
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.RelativeLayout
-import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager2.widget.ViewPager2
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.zhpan.bannerview.BannerViewPager
-import com.zhpan.bannerview.constants.PageStyle
-import com.zhpan.indicator.IndicatorView
-import com.zhpan.indicator.enums.IndicatorSlideMode
-import com.zhpan.indicator.enums.IndicatorStyle
 import com.zhpan.library.base.BaseFragment
+import com.zhpan.library.base.WebViewActivity
 import com.zhpan.oneandroid.R
 import com.zhpan.oneandroid.adapter.BannerAdapter
-import com.zhpan.oneandroid.adapter.BannerViewHolder
 import com.zhpan.oneandroid.databinding.FragmentHomeBinding
+import com.zhpan.oneandroid.databinding.LayoutBannerBinding
 import com.zhpan.oneandroid.module.response.BannerBean
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -39,8 +34,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
         HomeAdapter()
     }
 
-    private lateinit var mBannerViewPager: BannerViewPager<BannerBean, BannerViewHolder>
-    private lateinit var mIndicatorView: IndicatorView
+    private lateinit var mBannerBinding: LayoutBannerBinding;
     override fun initView() {
         setRefreshLayout(R.id.refresh_layout)
         mViewModel =
@@ -57,36 +51,22 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     }
 
     private fun getHeaderView(): View {
-        val headerView = LayoutInflater.from(context).inflate(
+        mBannerBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(context),
             R.layout.layout_banner,
             refresh_layout,
             false
-        ) as View
-        mBannerViewPager = headerView.findViewById(R.id.banner_view)
-        mIndicatorView = headerView.findViewById(R.id.indicator_view)
-        mBannerViewPager.apply {
-            adapter = BannerAdapter()
-            setIndicatorStyle(IndicatorStyle.ROUND_RECT)
-            setIndicatorSlideMode(IndicatorSlideMode.SCALE)
-            setAutoPlay(true)
-            setScrollDuration(700)
-            setIndicatorView(mIndicatorView)
-            setLifecycleRegistry(lifecycle)
-//            setPageMargin(resources.getDimensionPixelOffset(R.dimen.dp_15))
-//            setRevealWidth(resources.getDimensionPixelOffset(R.dimen.dp_10))
-            setIndicatorSliderColor(
-                resources.getColor(R.color.color_slider_normal),
-                resources.getColor(R.color.color_slider_checked)
-            )
-            setPageStyle(PageStyle.MULTI_PAGE_SCALE)
-            setIndicatorSliderWidth(
-                resources.getDimensionPixelOffset(R.dimen.dp_4),
-                resources.getDimensionPixelOffset(R.dimen.dp_10)
-            ).setIndicatorSliderGap(resources.getDimensionPixelOffset(R.dimen.dp_4)).create()
-
+        )
+        mBannerBinding.adapter = BannerAdapter()
+        mBannerBinding.pageClick = BannerViewPager.OnPageClickListener {
+            var data = mBannerBinding.bannerView.getData()[it]
+            if (data is BannerBean) {
+                WebViewActivity.start(requireContext(), data.title!!, data.url!!)
+            }
         }
-
-        return headerView
+        mBannerBinding.bannerView.setLifecycleRegistry(lifecycle)
+        mBannerBinding.indicator = mBannerBinding.indicatorView
+        return mBannerBinding.root
     }
 
     private fun fetchData(isRefresh: Boolean, showLoading: Boolean) {
@@ -111,7 +91,7 @@ class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
             ?.observe(viewLifecycleOwner, Observer { response ->
                 run {
                     response?.let {
-                        mBannerViewPager.refreshData(it)
+                        mBannerBinding.bannerView.refreshData(it)
                     }
                 }
 
