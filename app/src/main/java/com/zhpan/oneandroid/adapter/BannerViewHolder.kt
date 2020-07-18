@@ -6,7 +6,7 @@ import com.zhpan.bannerview.BaseViewHolder
 import com.zhpan.bannerview.utils.BannerUtils
 import com.zhpan.library.view.CornerImageView
 import com.zhpan.oneandroid.R
-import com.zhpan.oneandroid.module.response.BannerBean
+import com.zhpan.oneandroid.model.bean.BannerBean
 
 /**
  * <pre>

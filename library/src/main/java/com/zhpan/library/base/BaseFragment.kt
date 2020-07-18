@@ -30,6 +30,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : RxFragme
     protected var mBinding: VB? = null
     protected var mViewModel: VM? = null
     protected var mRefreshLayout: SmartRefreshLayout? = null
+    protected var page: Int = 0
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,7 +53,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : RxFragme
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mBinding?.lifecycleOwner = this
-        initView()
+        fetchData()
     }
 
     override fun onDestroy() {
@@ -87,11 +88,11 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : RxFragme
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
-
+        page = 0
     }
 
 
-    abstract fun initView()
+    abstract fun fetchData()
 
     abstract fun onViewInflate()
 

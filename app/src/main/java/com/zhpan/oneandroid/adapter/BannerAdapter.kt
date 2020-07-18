@@ -5,7 +5,7 @@ import androidx.databinding.DataBindingUtil
 import com.zhpan.bannerview.BaseBannerAdapter
 import com.zhpan.oneandroid.R
 import com.zhpan.oneandroid.databinding.ItemBannerBinding
-import com.zhpan.oneandroid.module.response.BannerBean
+import com.zhpan.oneandroid.model.bean.BannerBean
 
 /**
  * <pre>

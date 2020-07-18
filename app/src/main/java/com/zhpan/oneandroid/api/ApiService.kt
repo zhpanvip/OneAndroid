@@ -1,8 +1,8 @@
 package com.zhpan.oneandroid.api
 
-import com.zhpan.oneandroid.module.request.ArticleWrapper
-import com.zhpan.oneandroid.module.response.BannerBean
-import com.zhpan.oneandroid.module.response.LoginResponse
+import com.zhpan.oneandroid.model.response.ArticleResponse
+import com.zhpan.oneandroid.model.bean.BannerBean
+import com.zhpan.oneandroid.model.response.LoginResponse
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -12,7 +12,10 @@ import retrofit2.http.*
 interface ApiService {
 
     @GET("/article/list/{page}/json")
-    fun getHomeArticles(@Path("page") page: Int): Observable<ArticleWrapper>
+    fun getHomeArticles(@Path("page") page: Int): Observable<ArticleResponse>
+
+    @GET("user_article/list/{page}/json")
+    fun getSquareArticles(@Path("page") page: Int): Observable<ArticleResponse>
 
     /**
      * 使用map作为参数

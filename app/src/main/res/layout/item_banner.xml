@@ -8,7 +8,7 @@
 
         <variable
             name="bannerData"
-            type="com.zhpan.oneandroid.module.response.BannerBean" />
+            type="com.zhpan.oneandroid.model.bean.BannerBean" />
     </data>
 
     <androidx.cardview.widget.CardView

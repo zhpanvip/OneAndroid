@@ -3,6 +3,7 @@ package com.zhpan.library.server.common
 import android.widget.Toast
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.ToastUtils
+import com.blankj.utilcode.util.Utils
 import com.google.gson.JsonParseException
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import com.zhpan.library.R
@@ -42,7 +43,7 @@ abstract class ResponseObserver<T> : Observer<T> {
         ) {   //  解析错误
             onException(ExceptionReason.PARSE_ERROR)
         } else if (e is ServerResponseException) {
-            onFail(e.message)
+            onFail(e.errorCode, e.message)
         } else if (e is NoDataExceptionException) {
             onSuccess(null)
         } else {
@@ -66,7 +67,7 @@ abstract class ResponseObserver<T> : Observer<T> {
     /**
      * 服务器返回数据，但响应码不为1000
      */
-    open fun onFail(message: String?) {
+    open fun onFail(errorCode: Int, message: String?) {
         if (message != null) {
             ToastUtils.showShort(message)
         }
@@ -80,30 +81,17 @@ abstract class ResponseObserver<T> : Observer<T> {
      * @param reason
      */
     fun onException(reason: ExceptionReason?) {
-        when (reason) {
-            ExceptionReason.CONNECT_ERROR -> ToastUtils.showShort(
-                R.string.connect_error,
-                Toast.LENGTH_SHORT
-            )
-            ExceptionReason.CONNECT_TIMEOUT -> ToastUtils.showShort(
-                R.string.connect_timeout,
-                Toast.LENGTH_SHORT
-            )
-            ExceptionReason.BAD_NETWORK -> ToastUtils.showShort(
-                R.string.bad_network,
-                Toast.LENGTH_SHORT
-            )
-            ExceptionReason.PARSE_ERROR -> ToastUtils.showShort(
-                R.string.parse_error,
-                Toast.LENGTH_SHORT
-            )
-            ExceptionReason.UNKNOWN_ERROR -> ToastUtils.showShort(
-                R.string.unknown_error,
-                Toast.LENGTH_SHORT
-            )
-            else -> ToastUtils.showShort(R.string.unknown_error, Toast.LENGTH_SHORT)
+        @androidx.annotation.StringRes var errorMsg: Int = when (reason) {
+            ExceptionReason.CONNECT_ERROR -> R.string.connect_error
+            ExceptionReason.CONNECT_TIMEOUT -> R.string.connect_timeout
+            ExceptionReason.BAD_NETWORK -> R.string.bad_network
+            ExceptionReason.PARSE_ERROR -> R.string.parse_error
+            ExceptionReason.UNKNOWN_ERROR -> R.string.unknown_error
+            else -> R.string.unknown_error
         }
-        onFail(null)
+        val errorMessage = Utils.getApp().resources.getString(errorMsg)
+        ToastUtils.showShort(errorMessage)
+        onFail(0,errorMessage)
     }
 
     /**
