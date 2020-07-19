@@ -8,9 +8,13 @@ import androidx.annotation.IdRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProvider
+import com.scwang.smart.refresh.footer.BallPulseFooter
 import com.scwang.smart.refresh.header.MaterialHeader
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.scwang.smart.refresh.layout.api.RefreshFooter
 import com.scwang.smart.refresh.layout.api.RefreshLayout
+import com.scwang.smart.refresh.layout.constant.SpinnerStyle
+import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import com.trello.rxlifecycle2.components.support.RxFragment
 import com.zhpan.library.R
@@ -26,6 +30,7 @@ import kotlinx.coroutines.cancel
  */
 abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : RxFragment(), IFragmentHost,
     OnRefreshListener,
+    OnLoadMoreListener,
     CoroutineScope by MainScope() {
     protected var mBinding: VB? = null
     protected var mViewModel: VM? = null
@@ -71,9 +76,18 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : RxFragme
         mRefreshLayout = mBinding?.root?.findViewById<SmartRefreshLayout>(resId)
         if (needRefreshHeader()) {
             mRefreshLayout?.setRefreshHeader(getRefreshHeader())
+            mRefreshLayout?.setRefreshFooter(getRefreshFooter())
         }
-        mRefreshLayout?.setEnableLoadMore(false)
+        mRefreshLayout?.setEnableLoadMore(true)
         mRefreshLayout?.setOnRefreshListener(this)
+        mRefreshLayout?.setOnLoadMoreListener(this)
+    }
+
+    private fun getRefreshFooter(): RefreshFooter {
+        val ballFooter =
+            BallPulseFooter(requireContext()).setSpinnerStyle(SpinnerStyle.FixedBehind)
+        ballFooter.setAnimatingColor(requireContext().resources.getColor(R.color.colorPrimary))
+        return ballFooter
     }
 
     protected open fun needRefreshHeader(): Boolean {
@@ -91,6 +105,9 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : RxFragme
         page = 0
     }
 
+    override fun onLoadMore(refreshLayout: RefreshLayout) {
+
+    }
 
     abstract fun fetchData()
 

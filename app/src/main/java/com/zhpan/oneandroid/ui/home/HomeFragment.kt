@@ -8,6 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.LogUtils
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.library.base.BaseFragment
@@ -17,6 +19,7 @@ import com.zhpan.oneandroid.adapter.ArticleListAdapter
 import com.zhpan.oneandroid.adapter.BannerAdapter
 import com.zhpan.oneandroid.databinding.LayoutArticleListBinding
 import com.zhpan.oneandroid.databinding.LayoutBannerBinding
+import com.zhpan.oneandroid.model.bean.Article
 import com.zhpan.oneandroid.model.bean.BannerBean
 import kotlinx.android.synthetic.main.layout_article_list.*
 
@@ -47,7 +50,14 @@ class HomeFragment : BaseFragment<HomeViewModel, LayoutArticleListBinding>() {
             )
         mBinding?.apply {
             adapter = articleAdapter
+            itemClick = OnItemClickListener { adapter, _, position ->
+                val data = adapter.data[position]
+                if (data is Article) {
+                    WebViewActivity.start(requireContext(), data.title!!, data.link!!)
+                }
+            }
         }
+
         if (mBannerBinding == null) {
             articleAdapter.addHeaderView(getHeaderView())
         }
@@ -89,6 +99,7 @@ class HomeFragment : BaseFragment<HomeViewModel, LayoutArticleListBinding>() {
                             notifyDataSetChanged()
                         }
                         mRefreshLayout?.finishRefresh()
+                        mRefreshLayout?.finishLoadMore()
                     }
                 })
 
@@ -144,6 +155,11 @@ class HomeFragment : BaseFragment<HomeViewModel, LayoutArticleListBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         LogUtils.e(TAG, "onViewCreated")
+    }
+
+    override fun onLoadMore(refreshLayout: RefreshLayout) {
+        super.onLoadMore(refreshLayout)
+        fetchData(isRefresh = false, showLoading = false)
     }
 
 }

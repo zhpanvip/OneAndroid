@@ -3,8 +3,12 @@ package com.zhpan.oneandroid.base;
 import android.content.res.Resources;
 
 import androidx.databinding.BindingAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.zhpan.bannerview.BannerViewPager;
 import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.indicator.base.BaseIndicatorView;
@@ -48,6 +52,14 @@ public class DataBindingAdapter {
     @BindingAdapter(value = {"binding:url", "binding:placeholder"}, requireAll = false)
     public static void bindUrl(CornerImageView imageView, String url, int placeholder) {
         Glide.with(imageView).load(url).error(placeholder).placeholder(placeholder).into(imageView);
+    }
+
+    @BindingAdapter(value = {"binding:itemClick"})
+    public static void bindItemClick(RecyclerView recyclerView, OnItemClickListener onItemClickListener) {
+        RecyclerView.Adapter adapter = recyclerView.getAdapter();
+        if (adapter instanceof BaseQuickAdapter) {
+            ((BaseQuickAdapter) adapter).setOnItemClickListener(onItemClickListener);
+        }
     }
 
 }

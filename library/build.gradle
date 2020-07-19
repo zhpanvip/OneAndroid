@@ -68,4 +68,5 @@ dependencies {
     api "com.github.CymChad:BaseRecyclerViewAdapterHelper:${rootProject.ext.baseRecyclerViewAdapterHelper}"
     api 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor  'com.github.bumptech.glide:compiler:4.11.0'
+    api  'com.scwang.smart:refresh-footer-ball:2.0.1'
 }

@@ -9,9 +9,9 @@ import com.zhpan.oneandroid.R
 import kotlinx.android.synthetic.main.activity_main.*
 import com.zhpan.oneandroid.databinding.ActivityMainBinding
 
-class MainActivity : BaseActivity<BaseViewModel,ActivityMainBinding>() {
+class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
 
-   override fun onActivityCreated(savedInstanceState: Bundle?) {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
         initView()
         setListener()
     }
@@ -26,7 +26,8 @@ class MainActivity : BaseActivity<BaseViewModel,ActivityMainBinding>() {
                     bottomNavigationView.menu.getItem(position).isChecked = true
                 }
             })
-//            offscreenPageLimit=4
+            offscreenPageLimit = 4
+            isUserInputEnabled = false
         }
         toolbar.apply {
             title = getString(R.string.app_name)
@@ -76,5 +77,5 @@ class MainActivity : BaseActivity<BaseViewModel,ActivityMainBinding>() {
         }
     }
 
-   override fun getLayoutId(): Int = R.layout.activity_main
+    override fun getLayoutId(): Int = R.layout.activity_main
 }

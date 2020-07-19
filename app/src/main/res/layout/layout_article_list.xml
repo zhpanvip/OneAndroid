@@ -4,9 +4,14 @@
     xmlns:binding="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="adapter"
             type="com.zhpan.oneandroid.adapter.ArticleListAdapter" />
+
+        <variable
+            name="itemClick"
+            type="com.chad.library.adapter.base.listener.OnItemClickListener" />
     </data>
 
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -20,6 +25,7 @@
             android:layout_height="match_parent"
             app:adapter="@{adapter}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            binding:itemClick="@{itemClick}"
             binding:listitem="@layout/item_article" />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 </layout>

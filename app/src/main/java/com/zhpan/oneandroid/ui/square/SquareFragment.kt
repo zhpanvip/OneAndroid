@@ -1,14 +1,16 @@
 package com.zhpan.oneandroid.ui.square
 
 import androidx.lifecycle.ViewModelProvider
+import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.zhpan.library.base.BaseFragment
+import com.zhpan.library.base.WebViewActivity
 import com.zhpan.oneandroid.R
 import com.zhpan.oneandroid.adapter.ArticleListAdapter
 import com.zhpan.oneandroid.base.LiveDataObserver
 import com.zhpan.oneandroid.databinding.LayoutArticleListBinding
+import com.zhpan.oneandroid.model.bean.Article
 import com.zhpan.oneandroid.model.response.ArticleResponse
-
 
 /**
  * <pre>
@@ -30,7 +32,15 @@ class SquareFragment : BaseFragment<SquareViewModel, LayoutArticleListBinding>()
             ViewModelProvider(requireActivity(), SquareViewModelFactory(SquareRepository())).get(
                 SquareViewModel::class.java
             )
-        mBinding?.adapter = ArticleListAdapter(R.layout.item_article)
+        mBinding?.apply {
+            adapter = ArticleListAdapter(R.layout.item_article)
+            itemClick = OnItemClickListener { adapter, _, position ->
+                val data = adapter.data[position]
+                if (data is Article) {
+                    WebViewActivity.start(requireContext(), data.title!!, data.link!!)
+                }
+            }
+        }
         fetchData(isRefresh = true, showLoading = true)
     }
 
@@ -41,15 +51,21 @@ class SquareFragment : BaseFragment<SquareViewModel, LayoutArticleListBinding>()
                     super.onSuccess(t)
                     ++page
                     mBinding?.adapter?.apply {
-                        replaceData(t.datas!!)
+                        if (isRefresh) {
+                            replaceData(t.datas!!)
+                        } else {
+                            addData(t.datas!!)
+                        }
                         notifyDataSetChanged()
                         mRefreshLayout?.finishRefresh()
+                        mRefreshLayout?.finishLoadMore()
                     }
                 }
 
                 override fun onFail(errorCode: Int?, errorMsg: String?) {
                     super.onFail(errorCode, errorMsg)
                     mRefreshLayout?.finishRefresh()
+                    mRefreshLayout?.finishLoadMore()
                 }
             })
     }
@@ -66,5 +82,9 @@ class SquareFragment : BaseFragment<SquareViewModel, LayoutArticleListBinding>()
         return R.layout.layout_article_list
     }
 
+    override fun onLoadMore(refreshLayout: RefreshLayout) {
+        super.onLoadMore(refreshLayout)
+        fetchData(isRefresh = false, showLoading = false)
+    }
 
 }
