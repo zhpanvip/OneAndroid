@@ -62,7 +62,20 @@ class HomeFragment : BaseFragment<HomeViewModel, LayoutArticleListBinding>() {
             articleAdapter.addHeaderView(getHeaderView())
         }
 
-        fetchData(isRefresh = false, showLoading = true)
+        fetchArticles(isRefresh = false, showLoading = true)
+        fetchBannerData();
+    }
+
+    private fun fetchBannerData() {
+        val bannerData = mViewModel?.getBannerData(this@HomeFragment)
+        bannerData
+            ?.observe(viewLifecycleOwner, Observer { response ->
+                run {
+                    response?.let {
+                        mBannerBinding?.bannerView?.refreshData(it)
+                    }
+                }
+            })
     }
 
     private fun getHeaderView(): View {
@@ -84,7 +97,7 @@ class HomeFragment : BaseFragment<HomeViewModel, LayoutArticleListBinding>() {
         return mBannerBinding!!.root
     }
 
-    private fun fetchData(isRefresh: Boolean, showLoading: Boolean) {
+    private fun fetchArticles(isRefresh: Boolean, showLoading: Boolean) {
         mViewModel?.getHomeArticles(this@HomeFragment, page, showLoading)
             ?.observe(viewLifecycleOwner,
                 Observer { response ->
@@ -102,16 +115,6 @@ class HomeFragment : BaseFragment<HomeViewModel, LayoutArticleListBinding>() {
                         mRefreshLayout?.finishLoadMore()
                     }
                 })
-
-        val bannerData = mViewModel?.getBannerData(this@HomeFragment)
-        bannerData
-            ?.observe(viewLifecycleOwner, Observer { response ->
-                run {
-                    response?.let {
-                        mBannerBinding?.bannerView?.refreshData(it)
-                    }
-                }
-            })
     }
 
     override fun onViewInflate() {
@@ -119,7 +122,8 @@ class HomeFragment : BaseFragment<HomeViewModel, LayoutArticleListBinding>() {
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
         super.onRefresh(refreshLayout)
-        fetchData(isRefresh = true, showLoading = false)
+        fetchArticles(isRefresh = true, showLoading = false)
+        fetchBannerData()
     }
 
     override fun getLayoutId(): Int {
@@ -159,7 +163,7 @@ class HomeFragment : BaseFragment<HomeViewModel, LayoutArticleListBinding>() {
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
         super.onLoadMore(refreshLayout)
-        fetchData(isRefresh = false, showLoading = false)
+        fetchArticles(isRefresh = false, showLoading = false)
     }
 
 }
