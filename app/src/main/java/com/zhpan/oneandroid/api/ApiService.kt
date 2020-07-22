@@ -2,6 +2,7 @@ package com.zhpan.oneandroid.api
 
 import com.zhpan.oneandroid.model.response.ArticleResponse
 import com.zhpan.oneandroid.model.bean.BannerBean
+import com.zhpan.oneandroid.model.bean.OfficialAccountBean
 import com.zhpan.oneandroid.model.response.LoginResponse
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -16,6 +17,9 @@ interface ApiService {
 
     @GET("user_article/list/{page}/json")
     fun getSquareArticles(@Path("page") page: Int): Observable<ArticleResponse>
+
+    @GET("wxarticle/chapters/json")
+    fun getOfficialAccounts(): Observable<List<OfficialAccountBean>>
 
     /**
      * 使用map作为参数

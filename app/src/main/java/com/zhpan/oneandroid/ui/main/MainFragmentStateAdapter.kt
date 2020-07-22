@@ -11,7 +11,7 @@ import com.zhpan.oneandroid.ui.home.HomeFragment
 import com.zhpan.oneandroid.ui.project.ProjectFragment
 import com.zhpan.oneandroid.ui.square.SquareFragment
 import com.zhpan.oneandroid.ui.system.SystemFragment
-import com.zhpan.oneandroid.ui.wechat.WechatFragment
+import com.zhpan.oneandroid.ui.wechat.OfficialAccountFragment
 
 /**
  * <pre>
@@ -47,7 +47,7 @@ class MainFragmentStateAdapter(fragmentActivity: FragmentActivity) :
 
             PAGE_INDICATOR -> {
                 if (fragments.get(PAGE_INDICATOR) == null) {
-                    fragment = WechatFragment.getInstance()
+                    fragment = OfficialAccountFragment.getInstance()
                     fragments.put(PAGE_INDICATOR, fragment)
                 } else {
                     fragment = fragments.get(PAGE_INDICATOR)
