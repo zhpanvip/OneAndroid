@@ -45,8 +45,8 @@ class OfficialAccountFragment :
         adapter = WxArticleFragmentAdapter(requireActivity())
         mBinding?.viewPager2?.adapter = adapter
         mViewModel?.getOificialAccountViewModel(this, showLoading)
-            ?.observe(viewLifecycleOwner, object : Observer<List<OfficialAccountBean>> {
-                override fun onChanged(t: List<OfficialAccountBean>?) {
+            ?.observe(viewLifecycleOwner,
+                Observer { t ->
                     if (t != null) {
                         adapter.officialAccountList = t
                         adapter.notifyDataSetChanged()
@@ -57,11 +57,10 @@ class OfficialAccountFragment :
                             tab.text = t[position].name
                         }.attach()
                     }
-                }
-            })
+                })
     }
 
-    override fun onViewInflate() {
+    override fun initView() {
     }
 
     override fun getLayoutId(): Int {

@@ -7,7 +7,7 @@ package com.zhpan.oneandroid.model.bean
  *   Description:
  * </pre>
  */
-class Article {
+class ArticleBean {
     var title: String? = null
     var link: String? = null
     var author: String? = null

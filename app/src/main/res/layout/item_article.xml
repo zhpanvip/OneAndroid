@@ -7,7 +7,7 @@
     <data>
         <variable
             name="article"
-            type="com.zhpan.oneandroid.model.bean.Article" />
+            type="com.zhpan.oneandroid.model.bean.ArticleBean" />
     </data>
 
     <androidx.cardview.widget.CardView

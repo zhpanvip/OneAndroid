@@ -23,7 +23,7 @@ class SystemFragment : BaseFragment<BaseViewModel, ViewDataBinding>() {
     override fun fetchData() {
     }
 
-    override fun onViewInflate() {
+    override fun initView() {
     }
 
     override fun getLayoutId(): Int {

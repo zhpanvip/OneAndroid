@@ -1,9 +1,10 @@
-package com.zhpan.oneandroid.ui.wechat
+package com.zhpan.oneandroid.ui.wechat.article
 
 import androidx.lifecycle.MutableLiveData
 import com.zhpan.library.base.BaseViewModel
 import com.zhpan.library.base.IFragmentHost
 import com.zhpan.oneandroid.model.response.ArticleResponse
+import com.zhpan.oneandroid.ui.wechat.article.WeChatArticleRepository
 
 /**
  *

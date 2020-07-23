@@ -9,7 +9,7 @@ import com.zhpan.oneandroid.R
 import com.zhpan.oneandroid.adapter.ArticleListAdapter
 import com.zhpan.oneandroid.base.LiveDataObserver
 import com.zhpan.oneandroid.databinding.LayoutArticleListBinding
-import com.zhpan.oneandroid.model.bean.Article
+import com.zhpan.oneandroid.model.bean.ArticleBean
 import com.zhpan.oneandroid.model.response.ArticleResponse
 
 /**
@@ -36,7 +36,7 @@ class SquareFragment : BaseFragment<SquareViewModel, LayoutArticleListBinding>()
             adapter = ArticleListAdapter(R.layout.item_article)
             itemClick = OnItemClickListener { adapter, _, position ->
                 val data = adapter.data[position]
-                if (data is Article) {
+                if (data is ArticleBean) {
                     WebViewActivity.start(requireContext(), data.title!!, data.link!!)
                 }
             }
@@ -75,7 +75,7 @@ class SquareFragment : BaseFragment<SquareViewModel, LayoutArticleListBinding>()
         fetchData(isRefresh = true, showLoading = false)
     }
 
-    override fun onViewInflate() {
+    override fun initView() {
     }
 
     override fun getLayoutId(): Int {

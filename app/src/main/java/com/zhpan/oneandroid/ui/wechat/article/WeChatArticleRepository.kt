@@ -1,4 +1,4 @@
-package com.zhpan.oneandroid.ui.wechat
+package com.zhpan.oneandroid.ui.wechat.article
 
 import androidx.lifecycle.MutableLiveData
 import com.zhpan.library.base.IFragmentHost

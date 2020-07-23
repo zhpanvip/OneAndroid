@@ -43,7 +43,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : RxFragme
     ): View? {
         if (mBinding == null) {
             mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
-            onViewInflate()
+            initView()
         }
 
         return if (mBinding != null) {
@@ -111,7 +111,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : RxFragme
 
     abstract fun fetchData()
 
-    abstract fun onViewInflate()
+    abstract fun initView()
 
     abstract fun getLayoutId(): Int
 

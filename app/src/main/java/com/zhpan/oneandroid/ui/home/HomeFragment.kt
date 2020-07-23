@@ -1,15 +1,12 @@
 package com.zhpan.oneandroid.ui.home
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.blankj.utilcode.util.LogUtils
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemClickListener
+import com.google.android.material.tabs.TabLayoutMediator
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.library.base.BaseFragment
@@ -19,7 +16,7 @@ import com.zhpan.oneandroid.adapter.ArticleListAdapter
 import com.zhpan.oneandroid.adapter.BannerAdapter
 import com.zhpan.oneandroid.databinding.LayoutArticleListBinding
 import com.zhpan.oneandroid.databinding.LayoutBannerBinding
-import com.zhpan.oneandroid.model.bean.Article
+import com.zhpan.oneandroid.model.bean.ArticleBean
 import com.zhpan.oneandroid.model.bean.BannerBean
 import kotlinx.android.synthetic.main.layout_article_list.*
 
@@ -52,7 +49,7 @@ class HomeFragment : BaseFragment<HomeViewModel, LayoutArticleListBinding>() {
             adapter = articleAdapter
             itemClick = OnItemClickListener { adapter, _, position ->
                 val data = adapter.data[position]
-                if (data is Article) {
+                if (data is ArticleBean) {
                     WebViewActivity.start(requireContext(), data.title!!, data.link!!)
                 }
             }
@@ -117,7 +114,7 @@ class HomeFragment : BaseFragment<HomeViewModel, LayoutArticleListBinding>() {
                 })
     }
 
-    override fun onViewInflate() {
+    override fun initView() {
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
@@ -128,37 +125,6 @@ class HomeFragment : BaseFragment<HomeViewModel, LayoutArticleListBinding>() {
 
     override fun getLayoutId(): Int {
         return R.layout.layout_article_list
-    }
-
-    private val TAG: String = "HOME_FRAGMENT"
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        LogUtils.e(TAG, "onCreate")
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        LogUtils.e(TAG, "onCreateView")
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        LogUtils.e(TAG, "onResume")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        LogUtils.e(TAG, "onStart")
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        LogUtils.e(TAG, "onViewCreated")
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {

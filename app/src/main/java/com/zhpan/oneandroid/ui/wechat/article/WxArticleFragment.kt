@@ -1,4 +1,4 @@
-package com.zhpan.oneandroid.ui.wechat
+package com.zhpan.oneandroid.ui.wechat.article
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,7 +11,7 @@ import com.zhpan.library.base.WebViewActivity
 import com.zhpan.oneandroid.R
 import com.zhpan.oneandroid.adapter.ArticleListAdapter
 import com.zhpan.oneandroid.databinding.LayoutArticleListBinding
-import com.zhpan.oneandroid.model.bean.Article
+import com.zhpan.oneandroid.model.bean.ArticleBean
 import com.zhpan.oneandroid.model.response.ArticleResponse
 
 /**
@@ -31,7 +31,9 @@ class WxArticleFragment : BaseFragment<WeChatArticleViewModel, LayoutArticleList
         mViewModel =
             ViewModelProvider(
                 requireActivity(),
-                WeChatArticleViewModelFactory(WeChatArticleRepository())
+                WeChatArticleViewModelFactory(
+                    WeChatArticleRepository()
+                )
             ).get(
                 WeChatArticleViewModel::class.java
             )
@@ -64,13 +66,13 @@ class WxArticleFragment : BaseFragment<WeChatArticleViewModel, LayoutArticleList
             })
     }
 
-    override fun onViewInflate() {
+    override fun initView() {
         setRefreshLayout(R.id.refresh_layout)
         mBinding?.adapter = articleAdapter
         mBinding?.itemClick = OnItemClickListener { adapter, _, position ->
             run {
                 val data = adapter.data[position]
-                if (data is Article)
+                if (data is ArticleBean)
                     WebViewActivity.start(requireContext(), data.title!!, data.link!!)
             }
         }
@@ -81,7 +83,8 @@ class WxArticleFragment : BaseFragment<WeChatArticleViewModel, LayoutArticleList
     companion object {
         private const val OFFICIAL_ACCOUNT_ID = "OFFICIAL_ACCOUNT_ID"
         fun newInstance(accountId: String?): WxArticleFragment {
-            val fragment = WxArticleFragment()
+            val fragment =
+                WxArticleFragment()
             val args = Bundle()
             args.putString(OFFICIAL_ACCOUNT_ID, accountId)
             fragment.arguments = args

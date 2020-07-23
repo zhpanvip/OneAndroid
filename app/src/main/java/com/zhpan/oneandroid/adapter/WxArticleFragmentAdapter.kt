@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.zhpan.oneandroid.model.bean.OfficialAccountBean
-import com.zhpan.oneandroid.ui.wechat.WxArticleFragment
+import com.zhpan.oneandroid.ui.wechat.article.WxArticleFragment
 
 /**
  *
