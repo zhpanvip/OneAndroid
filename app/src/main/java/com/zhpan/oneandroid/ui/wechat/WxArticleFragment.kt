@@ -1,59 +1,101 @@
 package com.zhpan.oneandroid.ui.wechat
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.chad.library.adapter.base.listener.OnItemClickListener
+import com.scwang.smart.refresh.layout.api.RefreshLayout
+import com.zhpan.library.base.BaseFragment
+import com.zhpan.library.base.WebViewActivity
 import com.zhpan.oneandroid.R
+import com.zhpan.oneandroid.adapter.ArticleListAdapter
+import com.zhpan.oneandroid.databinding.LayoutArticleListBinding
+import com.zhpan.oneandroid.model.bean.Article
+import com.zhpan.oneandroid.model.response.ArticleResponse
 
 /**
  * A simple [Fragment] subclass.
  * Use the [WxArticleFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class WxArticleFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var mParam1: String? = null
-    private var mParam2: String? = null
+class WxArticleFragment : BaseFragment<WeChatArticleViewModel, LayoutArticleListBinding>() {
+    private val articleAdapter by lazy {
+        ArticleListAdapter()
+    }
+    private var accountId: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         if (arguments != null) {
-            mParam1 = requireArguments().getString(ARG_PARAM1)
-            mParam2 = requireArguments().getString(ARG_PARAM2)
+            accountId = requireArguments().getString(OFFICIAL_ACCOUNT_ID)
+        }
+        mViewModel =
+            ViewModelProvider(
+                requireActivity(),
+                WeChatArticleViewModelFactory(WeChatArticleRepository())
+            ).get(
+                WeChatArticleViewModel::class.java
+            )
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun fetchData() {
+        fetchArticles(isRefresh = false, showLoading = true)
+    }
+
+    private fun fetchArticles(isRefresh: Boolean, showLoading: Boolean) {
+        mViewModel?.getWeChatViewModel(this, accountId!!, page, showLoading)
+            ?.observe(viewLifecycleOwner, object : Observer<ArticleResponse> {
+                override fun onChanged(t: ArticleResponse?) {
+                    mRefreshLayout?.finishRefresh()
+                    mRefreshLayout?.finishLoadMore()
+                    if (t != null) {
+                        page++
+                        articleAdapter.apply {
+                            if (isRefresh) {
+                                replaceData(t.datas!!)
+                            } else {
+                                addData(t.datas!!)
+                            }
+                            notifyDataSetChanged()
+                        }
+                    }
+                }
+
+            })
+    }
+
+    override fun onViewInflate() {
+        setRefreshLayout(R.id.refresh_layout)
+        mBinding?.adapter = articleAdapter
+        mBinding?.itemClick = OnItemClickListener { adapter, _, position ->
+            run {
+                val data = adapter.data[position]
+                if (data is Article)
+                    WebViewActivity.start(requireContext(), data.title!!, data.link!!)
+            }
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_wx_article, container, false)
-    }
+    override fun getLayoutId(): Int = R.layout.layout_article_list
 
     companion object {
-        // TODO: Rename parameter arguments, choose names that match
-        // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-        private const val ARG_PARAM1 = "param1"
-        private const val ARG_PARAM2 = "param2"
-
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment WxArticleFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        fun newInstance(param1: String?, param2: String?): WxArticleFragment {
+        private const val OFFICIAL_ACCOUNT_ID = "OFFICIAL_ACCOUNT_ID"
+        fun newInstance(accountId: String?): WxArticleFragment {
             val fragment = WxArticleFragment()
             val args = Bundle()
-            args.putString(ARG_PARAM1, param1)
-            args.putString(ARG_PARAM2, param2)
+            args.putString(OFFICIAL_ACCOUNT_ID, accountId)
             fragment.arguments = args
             return fragment
         }
+    }
+
+    override fun onRefresh(refreshLayout: RefreshLayout) {
+        super.onRefresh(refreshLayout)
+        fetchArticles(isRefresh = true, showLoading = false)
+    }
+
+    override fun onLoadMore(refreshLayout: RefreshLayout) {
+        super.onLoadMore(refreshLayout)
+        fetchArticles(isRefresh = false, showLoading = false)
     }
 }

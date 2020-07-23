@@ -36,38 +36,38 @@ class MainFragmentStateAdapter(fragmentActivity: FragmentActivity) :
                     fragment = fragments.get(PAGE_HOME)
                 }
             }
-            PAGE_FIND -> {
-                if (fragments.get(PAGE_FIND) == null) {
+            PAGE_TWO -> {
+                if (fragments.get(PAGE_TWO) == null) {
                     fragment = SquareFragment.getInstance()
-                    fragments.put(PAGE_FIND, fragment)
+                    fragments.put(PAGE_TWO, fragment)
                 } else {
-                    fragment = fragments.get(PAGE_FIND)
+                    fragment = fragments.get(PAGE_TWO)
                 }
             }
 
-            PAGE_INDICATOR -> {
-                if (fragments.get(PAGE_INDICATOR) == null) {
+            PAGE_THREE -> {
+                if (fragments.get(PAGE_THREE) == null) {
                     fragment = OfficialAccountFragment.getInstance()
-                    fragments.put(PAGE_INDICATOR, fragment)
+                    fragments.put(PAGE_THREE, fragment)
                 } else {
-                    fragment = fragments.get(PAGE_INDICATOR)
+                    fragment = fragments.get(PAGE_THREE)
                 }
             }
 
-            PAGE_OTHERS -> {
-                if (fragments.get(PAGE_OTHERS) == null) {
+            PAGE_FOUR -> {
+                if (fragments.get(PAGE_FOUR) == null) {
                     fragment = SystemFragment.getInstance()
-                    fragments.put(PAGE_OTHERS, fragment)
+                    fragments.put(PAGE_FOUR, fragment)
                 } else {
-                    fragment = fragments.get(PAGE_OTHERS)
+                    fragment = fragments.get(PAGE_FOUR)
                 }
             }
-            PAGE_PROJECT -> {
-                if (fragments.get(PAGE_PROJECT) == null) {
+            PAGE_FIVE -> {
+                if (fragments.get(PAGE_FIVE) == null) {
                     fragment = ProjectFragment.getInstance()
-                    fragments.put(PAGE_PROJECT, fragment)
+                    fragments.put(PAGE_FIVE, fragment)
                 } else {
-                    fragment = fragments.get(PAGE_PROJECT)
+                    fragment = fragments.get(PAGE_FIVE)
                 }
             }
             else -> {
@@ -90,13 +90,13 @@ class MainFragmentStateAdapter(fragmentActivity: FragmentActivity) :
 
         const val PAGE_HOME = 0
 
-        const val PAGE_FIND = 1
+        const val PAGE_TWO = 1
 
-        const val PAGE_INDICATOR = 2
+        const val PAGE_THREE = 2
 
-        const val PAGE_OTHERS = 3
+        const val PAGE_FOUR = 3
 
-        const val PAGE_PROJECT = 4
+        const val PAGE_FIVE = 4
 
     }
 

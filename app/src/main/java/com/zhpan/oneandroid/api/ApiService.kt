@@ -21,12 +21,12 @@ interface ApiService {
     @GET("wxarticle/chapters/json")
     fun getOfficialAccounts(): Observable<List<OfficialAccountBean>>
 
-    /**
-     * 使用map作为参数
-     *
-     * @param map
-     * @return
-     */
+    @GET("wxarticle/list/{accountId}/{page}/json")
+    fun getWechatArticles(
+        @Path("accountId") accountId: String?,
+        @Path("page") page: Int
+    ): Observable<ArticleResponse>
+
     @FormUrlEncoded
     @POST("user/login")
     fun login(
