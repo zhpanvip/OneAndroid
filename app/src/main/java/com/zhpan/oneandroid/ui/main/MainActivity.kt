@@ -26,7 +26,6 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
                     bottomNavigationView.menu.getItem(position).isChecked = true
                 }
             })
-            offscreenPageLimit = 4
             isUserInputEnabled = false
         }
         toolbar.apply {
@@ -56,23 +55,25 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
 
     private fun setListener() {
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
+            val position = when (item.itemId) {
                 R.id.item_tab1 -> {
-                    viewPager2.currentItem = 0
+                    0
                 }
                 R.id.item_tab2 -> {
-                    viewPager2.currentItem = 1
+                    1
                 }
                 R.id.item_tab3 -> {
-                    viewPager2.currentItem = 2
+                    2
                 }
                 R.id.item_tab4 -> {
-                    viewPager2.currentItem = 3
+                    3
                 }
                 R.id.item_tab5 -> {
-                    viewPager2.currentItem = 4
+                    4
                 }
+                else -> 0
             }
+            viewPager2.setCurrentItem(position, false)
             false
         }
     }

@@ -36,6 +36,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : RxFragme
     protected var mViewModel: VM? = null
     protected var mRefreshLayout: SmartRefreshLayout? = null
     protected var page: Int = 0
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

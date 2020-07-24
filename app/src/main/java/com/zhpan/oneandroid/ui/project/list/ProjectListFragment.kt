@@ -60,6 +60,7 @@ class ProjectListFragment : BaseFragment<ProjectListViewModel, FragmentProjectLi
                         } else {
                             mBinding?.adapter?.addData(it.datas!!)
                         }
+                        mRefreshLayout?.setNoMoreData(it.datas?.size!! < 20)
                     }
                 })
 

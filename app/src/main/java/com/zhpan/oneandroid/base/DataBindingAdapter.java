@@ -14,7 +14,6 @@ import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.indicator.base.BaseIndicatorView;
 import com.zhpan.indicator.enums.IndicatorSlideMode;
 import com.zhpan.indicator.enums.IndicatorStyle;
-import com.zhpan.library.view.CornerImageView;
 import com.zhpan.oneandroid.R;
 import com.zhpan.oneandroid.adapter.BannerAdapter;
 import com.zhpan.oneandroid.adapter.BannerViewHolder;

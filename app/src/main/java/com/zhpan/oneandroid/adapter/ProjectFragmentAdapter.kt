@@ -2,7 +2,7 @@ package com.zhpan.oneandroid.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.zhpan.oneandroid.model.bean.ProjectTree
+import com.zhpan.oneandroid.model.bean.ProjectClassify
 import com.zhpan.oneandroid.ui.project.list.ProjectListFragment
 
 
@@ -13,7 +13,7 @@ import com.zhpan.oneandroid.ui.project.list.ProjectListFragment
  * </pre>
  */
 class ProjectFragmentAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
-    var projectTree: List<ProjectTree> = ArrayList()
+    var projectTree: List<ProjectClassify> = ArrayList()
 
     override fun getItemCount(): Int {
         return projectTree.size

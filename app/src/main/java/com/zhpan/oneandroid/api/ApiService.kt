@@ -1,10 +1,7 @@
 package com.zhpan.oneandroid.api
 
+import com.zhpan.oneandroid.model.bean.*
 import com.zhpan.oneandroid.model.response.ArticleResponse
-import com.zhpan.oneandroid.model.bean.BannerBean
-import com.zhpan.oneandroid.model.bean.OfficialAccountBean
-import com.zhpan.oneandroid.model.bean.ProjectBean
-import com.zhpan.oneandroid.model.bean.ProjectTree
 import com.zhpan.oneandroid.model.response.LoginResponse
 import com.zhpan.oneandroid.model.response.ProjectResponse
 import io.reactivex.Observable
@@ -41,12 +38,15 @@ interface ApiService {
     fun getBannerData(): Observable<List<BannerBean>>
 
     @GET("project/tree/json")
-    fun getProjectTree(): Observable<List<ProjectTree>>
+    fun getProjectClassify(): Observable<List<ProjectClassify>>
 
     @GET("project/list/{page}/json")
     fun getProjectList(
         @Path("page") page: Int,
         @Query("cid") cid: String
     ): Observable<ProjectResponse>
+
+    @GET("tree/json")
+    fun getSystemClassify(): Observable<List<SystemItemBean>>
 
 }

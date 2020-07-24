@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.zhpan.library.base.IFragmentHost
 import com.zhpan.library.server.common.ResponseObserver
 import com.zhpan.oneandroid.base.BaseRepository
-import com.zhpan.oneandroid.model.bean.ProjectTree
+import com.zhpan.oneandroid.model.bean.ProjectClassify
 import com.zhpan.oneandroid.utils.RxUtils
 
 
@@ -19,11 +19,11 @@ class ProjectRepository : BaseRepository() {
     fun getProjectTrees(
         iFragment: IFragmentHost,
         showLoading: Boolean
-    ): MutableLiveData<List<ProjectTree>> {
-        val mutableLiveData = MutableLiveData<List<ProjectTree>>()
-        getApiService().getProjectTree().compose(RxUtils.rxSchedulerHelper(iFragment, showLoading))
-            .subscribe(object : ResponseObserver<List<ProjectTree>>() {
-                override fun onSuccess(response: List<ProjectTree>?) {
+    ): MutableLiveData<List<ProjectClassify>> {
+        val mutableLiveData = MutableLiveData<List<ProjectClassify>>()
+        getApiService().getProjectClassify().compose(RxUtils.rxSchedulerHelper(iFragment, showLoading))
+            .subscribe(object : ResponseObserver<List<ProjectClassify>>() {
+                override fun onSuccess(response: List<ProjectClassify>?) {
                     mutableLiveData.value = response
                 }
 

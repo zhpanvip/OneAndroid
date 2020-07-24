@@ -7,7 +7,7 @@ package com.zhpan.oneandroid.model.bean
  *   Description:
  * </pre>
  */
-class ProjectTree {
+class ProjectClassify {
     var id: String? = null
     var name: String? = null
     var courseId: String? = null

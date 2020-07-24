@@ -3,7 +3,7 @@ package com.zhpan.oneandroid.ui.project
 import androidx.lifecycle.MutableLiveData
 import com.zhpan.library.base.BaseViewModel
 import com.zhpan.library.base.IFragmentHost
-import com.zhpan.oneandroid.model.bean.ProjectTree
+import com.zhpan.oneandroid.model.bean.ProjectClassify
 
 
 /**
@@ -16,7 +16,7 @@ class ProjectViewModel(private var projectRepository: ProjectRepository) : BaseV
     fun getProjectTrees(
         iFragmentHost: IFragmentHost,
         showLoading: Boolean
-    ): MutableLiveData<List<ProjectTree>> {
+    ): MutableLiveData<List<ProjectClassify>> {
         return projectRepository.getProjectTrees(iFragmentHost, showLoading)
     }
 }
