@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.zhpan.oneandroid.model.bean.SystemItemBean" />
+            type="com.zhpan.oneandroid.model.bean.KnowledgeBean" />
 
         <variable
             name="adapter"

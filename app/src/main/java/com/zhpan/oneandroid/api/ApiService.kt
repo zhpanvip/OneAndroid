@@ -1,6 +1,9 @@
 package com.zhpan.oneandroid.api
 
-import com.zhpan.oneandroid.model.bean.*
+import com.zhpan.oneandroid.model.bean.BannerBean
+import com.zhpan.oneandroid.model.bean.KnowledgeBean
+import com.zhpan.oneandroid.model.bean.OfficialAccountBean
+import com.zhpan.oneandroid.model.bean.ProjectClassify
 import com.zhpan.oneandroid.model.response.ArticleResponse
 import com.zhpan.oneandroid.model.response.LoginResponse
 import com.zhpan.oneandroid.model.response.ProjectResponse
@@ -47,6 +50,12 @@ interface ApiService {
     ): Observable<ProjectResponse>
 
     @GET("tree/json")
-    fun getSystemClassify(): Observable<List<SystemItemBean>>
+    fun getSystemClassify(): Observable<List<KnowledgeBean>>
+
+    @GET("article/list/{page}/json")
+    fun getKnowledgeArticles(
+        @Path("page") page: Int,
+        @Query("cid") cid: String
+    ): Observable<ArticleResponse>
 
 }

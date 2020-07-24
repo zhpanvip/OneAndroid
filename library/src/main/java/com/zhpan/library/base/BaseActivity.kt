@@ -32,7 +32,6 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewDataBinding> : RxAppCom
 
     override fun onDestroy() {
         super.onDestroy()
-        cancel()
         mBinding.unbind()
     }
 

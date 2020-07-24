@@ -10,7 +10,7 @@ import com.zhpan.library.base.BaseViewModel
 import com.zhpan.oneandroid.ui.home.HomeFragment
 import com.zhpan.oneandroid.ui.project.ProjectFragment
 import com.zhpan.oneandroid.ui.square.SquareFragment
-import com.zhpan.oneandroid.ui.system.SystemFragment
+import com.zhpan.oneandroid.ui.knowledge.KnowledgeFragment
 import com.zhpan.oneandroid.ui.wechat.OfficialAccountFragment
 
 /**
@@ -56,7 +56,7 @@ class MainFragmentStateAdapter(fragmentActivity: FragmentActivity) :
 
             PAGE_FOUR -> {
                 if (fragments.get(PAGE_FOUR) == null) {
-                    fragment = SystemFragment.getInstance()
+                    fragment = KnowledgeFragment.getInstance()
                     fragments.put(PAGE_FOUR, fragment)
                 } else {
                     fragment = fragments.get(PAGE_FOUR)

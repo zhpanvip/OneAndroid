@@ -8,10 +8,11 @@ import android.view.View;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.view.ViewCompat;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Created by chenxz on 2017/11/25.
  */
-
 public class BottomNavigationBehavior extends CoordinatorLayout.Behavior<View> {
     private ObjectAnimator outAnimator, inAnimator;
 
@@ -21,12 +22,12 @@ public class BottomNavigationBehavior extends CoordinatorLayout.Behavior<View> {
 
     // 垂直滑动
     @Override
-    public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child, View directTargetChild, View target, int nestedScrollAxes) {
+    public boolean onStartNestedScroll(@NotNull CoordinatorLayout coordinatorLayout, @NotNull View child, @NotNull View directTargetChild, @NotNull View target, int nestedScrollAxes) {
         return nestedScrollAxes == ViewCompat.SCROLL_AXIS_VERTICAL;
     }
 
     @Override
-    public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, View child, View target, int dx, int dy, int[] consumed) {
+    public void onNestedPreScroll(@NotNull CoordinatorLayout coordinatorLayout, @NotNull View child, @NotNull View target, int dx, int dy, @NotNull int[] consumed) {
         if (dy > 0) {// 上滑隐藏
             if (outAnimator == null) {
                 outAnimator = ObjectAnimator.ofFloat(child, "translationY", 0, child.getHeight());

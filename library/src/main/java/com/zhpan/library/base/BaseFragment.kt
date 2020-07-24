@@ -37,6 +37,10 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : RxFragme
     protected var mRefreshLayout: SmartRefreshLayout? = null
     protected var page: Int = 0
 
+    companion object {
+        const val DEFAULT_PAGE_SIZE = 20
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
