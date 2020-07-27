@@ -2,29 +2,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:enabled="true"
         android:id="@+id/item_tab1"
+        android:enabled="true"
         android:icon="@drawable/ic_tab_home"
-        android:title="首页" />
+        android:title="@string/tab_home" />
     <item
-        android:enabled="true"
         android:id="@+id/item_tab2"
-        android:icon="@drawable/ic_tab_square"
-        android:title="广场" />
-    <item
         android:enabled="true"
+        android:icon="@drawable/ic_tab_square"
+        android:title="@string/tab_square" />
+    <item
         android:id="@+id/item_tab3"
+        android:enabled="true"
         android:icon="@drawable/ic_tab_wechat"
-        android:title="公众号" />
+        android:title="@string/tab_official_account" />
 
     <item
-        android:enabled="true"
         android:id="@+id/item_tab4"
-        android:icon="@drawable/ic_tab_system"
-        android:title="体系" />
-    <item
         android:enabled="true"
+        android:icon="@drawable/ic_tab_system"
+        android:title="@string/tab_knowledge_map" />
+    <item
         android:id="@+id/item_tab5"
+        android:enabled="true"
         android:icon="@drawable/ic_tab_project"
-        android:title="项目" />
+        android:title="@string/tab_project" />
 </menu>

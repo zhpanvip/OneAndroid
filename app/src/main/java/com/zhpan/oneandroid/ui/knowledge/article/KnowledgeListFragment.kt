@@ -1,39 +1,24 @@
 package com.zhpan.oneandroid.ui.knowledge.article
 
 import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.blankj.utilcode.util.LogUtils
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.zhpan.library.base.BaseFragment
-import com.zhpan.library.base.BaseViewModel
 import com.zhpan.library.base.WebViewActivity
 import com.zhpan.oneandroid.R
 import com.zhpan.oneandroid.adapter.ArticleListAdapter
+import com.zhpan.oneandroid.base.Constants.Companion.KEY_KNOWLEDGE_CID
 import com.zhpan.oneandroid.databinding.FragmentKnowledgeListBinding
-import com.zhpan.oneandroid.model.response.ArticleResponse
-import kotlinx.android.synthetic.main.activity_main.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val KNOWLEDGE_CID = "KNOWLEDGE_CID"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [KnowledgeListFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class KnowledgeListFragment : BaseFragment<KnowledgeListViewModel, FragmentKnowledgeListBinding>() {
     private var cid: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            cid = it.getString(KNOWLEDGE_CID)
+            cid = it.getString(KEY_KNOWLEDGE_CID)
         }
     }
 
@@ -42,7 +27,7 @@ class KnowledgeListFragment : BaseFragment<KnowledgeListViewModel, FragmentKnowl
         fun newInstance(cid: String) =
             KnowledgeListFragment().apply {
                 arguments = Bundle().apply {
-                    putString(KNOWLEDGE_CID, cid)
+                    putString(KEY_KNOWLEDGE_CID, cid)
                 }
             }
     }
@@ -52,13 +37,10 @@ class KnowledgeListFragment : BaseFragment<KnowledgeListViewModel, FragmentKnowl
     }
 
     private fun fetchArticles(isRefresh: Boolean, showLoading: Boolean) {
-        LogUtils.e("fetchArticles")
         mViewModel?.getKnowledgeArticles(this, showLoading, page, cid!!)
             ?.observe(viewLifecycleOwner,
                 Observer {
-                    LogUtils.e("Knowledge")
                     it.let {
-
                         if (isRefresh) {
                             mBinding?.adapter?.replaceData(it.datas!!)
                         } else {

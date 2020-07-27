@@ -6,29 +6,29 @@
 
         <item
             android:id="@+id/nav_collect"
-            android:icon="@drawable/ic_tab_project"
+            android:icon="@drawable/ic_collect"
             android:title="@string/my_collect" />
 
         <item
             android:id="@+id/nav_share"
-            android:icon="@drawable/ic_tab_project"
+            android:icon="@drawable/ic_share"
             android:title="@string/my_share" />
 
         <item
             android:id="@+id/nav_integral"
-            android:icon="@drawable/ic_tab_project"
+            android:icon="@drawable/ic_ji_fen"
             android:title="@string/my_jifen"
             app:actionViewClass="android.widget.TextView" />
 
         <item
             android:id="@+id/nav_to_do"
-            android:icon="@drawable/ic_tab_project"
+            android:icon="@drawable/ic_to_do"
             android:title="@string/nav_to_do"
             app:actionViewClass="android.widget.TextView" />
 
         <item
             android:id="@+id/nav_setting"
-            android:icon="@drawable/ic_tab_project"
+            android:icon="@drawable/ic_setting"
             android:title="@string/setting" />
 
     </group>

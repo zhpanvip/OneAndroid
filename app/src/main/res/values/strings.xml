@@ -9,4 +9,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_home">首页</string>
+    <string name="tab_square">广场</string>
+    <string name="tab_official_account">公众号</string>
+    <string name="tab_knowledge_map">体系</string>
+    <string name="tab_project">项目</string>
 </resources>

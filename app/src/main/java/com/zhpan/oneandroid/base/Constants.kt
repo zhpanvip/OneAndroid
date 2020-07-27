@@ -9,5 +9,7 @@ package com.zhpan.oneandroid.base
 interface Constants {
     companion object {
         const val KEY_KNOWLEDGE_TITLE = "knowledge_title"
+        const val KEY_KNOWLEDGE_CID = "KNOWLEDGE_CID"
+
     }
 }
