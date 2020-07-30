@@ -12,11 +12,18 @@
         <item name="buttonStyle">@style/ButtonStyle</item>
     </style>
 
-    <style name="FullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="FullScreenTheme" parent="AppTheme">
         <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowEnableSplitTouch">false</item>
         <item name="android:splitMotionEvents">false</item>
+    </style>
+
+    <style name="AppTheme.TranslucentStatus">
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -43,14 +50,19 @@
     </style>
 
     <style name="ButtonStyle" parent="Widget.AppCompat.Button.Borderless">
-        <item name="android:paddingStart">15dp</item>
-        <item name="android:paddingEnd">15dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:minHeight">@dimen/dp_32</item>
+        <item name="android:paddingStart">@dimen/dp_15</item>
+        <item name="android:paddingEnd">@dimen/dp_15</item>
+        <item name="android:paddingTop">@dimen/dp_8</item>
+        <item name="android:paddingBottom">@dimen/dp_8</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/button_selector</item>
         <item name="android:foreground">@null</item>
+        <item name="android:textAppearance">@style/ButtonTextStyle</item>
+    </style>
+
+    <style name="ButtonTextStyle">
+        <item name="android:textSize">@dimen/sp_18</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 </resources>

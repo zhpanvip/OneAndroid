@@ -15,9 +15,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.login.LoginActivity"></activity>
-        <activity android:name=".ui.todo.ToDoActivity" />
-        <activity android:name=".ui.share.MyShareActivity" />
+        <activity
+            android:name=".ui.login.LoginActivity"/>
+        <activity
+            android:name=".ui.todo.ToDoActivity"
+            android:theme="@style/AppTheme.TranslucentStatus" />
+        <activity
+            android:name=".ui.share.MyShareActivity"
+            android:theme="@style/AppTheme.TranslucentStatus" />
         <activity android:name=".ui.setting.SettingActivity" />
         <activity android:name=".ui.jifen.IntegralActivity" />
         <activity android:name=".ui.collect.MyCollectActivity" />
@@ -25,7 +30,7 @@
         <activity android:name=".ui.TestActivity" />
         <activity
             android:name=".ui.splash.SplashActivity"
-            android:theme="@style/FullScreenTheme">
+            android:theme="@style/AppTheme.TranslucentStatus">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
@@ -33,7 +38,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.main.MainActivity" />
+        <activity
+            android:name=".ui.main.MainActivity" />
     </application>
 
 </manifest>

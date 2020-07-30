@@ -2,16 +2,19 @@ package com.zhpan.oneandroid.ui.splash
 
 import android.animation.Animator
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.zhpan.library.base.BaseActivity
+import com.zhpan.library.base.BaseViewModel
 import com.zhpan.oneandroid.R
+import com.zhpan.oneandroid.databinding.ActivitySplashBinding
 import com.zhpan.oneandroid.ui.main.MainActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 
-class SplashActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+class SplashActivity : BaseActivity<BaseViewModel, ActivitySplashBinding>() {
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        setTransparentStatusBar()
+        setStatusBarDarkMode(false)
         lottie_view.addAnimatorListener(object : Animator.AnimatorListener {
             override fun onAnimationRepeat(animation: Animator?) {
             }
@@ -29,4 +32,6 @@ class SplashActivity : AppCompatActivity() {
 
         })
     }
+
+    override fun getLayoutId(): Int = R.layout.activity_splash
 }

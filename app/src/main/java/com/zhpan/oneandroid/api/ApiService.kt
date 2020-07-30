@@ -35,7 +35,7 @@ interface ApiService {
     fun login(
         @Field("username") username: String,
         @Field("password") password: String
-    ): Observable<LoginResponse?>?
+    ): Observable<LoginResponse>
 
     @GET("banner/json")
     fun getBannerData(): Observable<List<BannerBean>>

@@ -3,10 +3,8 @@ package com.zhpan.oneandroid.ui.main
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.ViewGroup
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.viewpager2.widget.ViewPager2
-import com.blankj.utilcode.util.BarUtils
 import com.zhpan.library.base.BaseActivity
 import com.zhpan.library.base.BaseViewModel
 import com.zhpan.oneandroid.R
@@ -27,6 +25,7 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
     }
 
     private fun initView() {
+        setTransparentStatusBar()
         with(viewPager2) {
             adapter =
                 MainFragmentStateAdapter(this@MainActivity)

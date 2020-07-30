@@ -1,10 +1,13 @@
 package com.zhpan.library.base
 
+import android.graphics.Color
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
+import com.blankj.utilcode.util.BarUtils
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -23,6 +26,8 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewDataBinding> : RxAppCom
     protected val mBinding: VB by lazy {
         DataBindingUtil.setContentView(this, getLayoutId()) as VB
     }
+
+    protected var mViewModel: VM? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,5 +48,13 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewDataBinding> : RxAppCom
 
     override fun getActivity(): FragmentActivity? {
         return this
+    }
+
+    fun setTransparentStatusBar() {
+        BarUtils.transparentStatusBar(this)
+    }
+
+    fun setStatusBarDarkMode(boolean: Boolean) {
+        BarUtils.setStatusBarLightMode(this, boolean)
     }
 }
