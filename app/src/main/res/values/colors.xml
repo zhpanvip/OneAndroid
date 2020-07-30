@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
+    <color name="btn_disabled_color">#B3DDFF</color>
+    <color name="btn_enable_color">#46C8FA</color>
+
+
     <color name="colorTextPrimary">@color/gray_7a</color>
     <color name="colorTextPrimaryDark">@color/gray_2a</color>
     <color name="background">@color/gray_f7</color>
@@ -36,4 +41,9 @@
     <color name="alpha_95_white">#F2FFFFFF</color>
     <color name="color_slider_checked">#0A9DDE</color>
     <color name="color_slider_normal">#B3E1F5</color>
+    <color name="btn_pressed_mask_color">#33000000</color>
+    <color name="btn_bg_gradient_end_disabled_color">#B3DDFF</color>
+    <color name="btn_bg_gradient_start_disabled_color">#C7EFFE</color>
+    <color name="btn_bg_gradient_end_color">#46C8FA</color>
+    <color name="btn_bg_gradient_start_color">#008EFF</color>
 </resources>

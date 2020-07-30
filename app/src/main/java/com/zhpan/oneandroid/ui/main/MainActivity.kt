@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import com.zhpan.oneandroid.databinding.ActivityMainBinding
 import com.zhpan.oneandroid.ui.collect.MyCollectActivity
 import com.zhpan.oneandroid.ui.jifen.IntegralActivity
+import com.zhpan.oneandroid.ui.login.LoginActivity
 import com.zhpan.oneandroid.ui.setting.SettingActivity
 import com.zhpan.oneandroid.ui.share.MyShareActivity
 import com.zhpan.oneandroid.ui.todo.ToDoActivity
@@ -35,7 +36,7 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
                     bottomNavigationView.menu.getItem(position).isChecked = true
                 }
             })
-            offscreenPageLimit = 4
+//            offscreenPageLimit = 4
             isUserInputEnabled = false
         }
         toolbar.apply {
@@ -68,6 +69,9 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
             }
         }
         mBinding.title = getString(R.string.tab_home)
+        nav_view.getHeaderView(0).setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
     }
 
     private fun setListener() {
