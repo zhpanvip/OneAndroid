@@ -5,8 +5,8 @@ import com.zhpan.oneandroid.model.bean.KnowledgeBean
 import com.zhpan.oneandroid.model.bean.OfficialAccountBean
 import com.zhpan.oneandroid.model.bean.ProjectClassify
 import com.zhpan.oneandroid.model.response.ArticleResponse
-import com.zhpan.oneandroid.model.response.LoginResponse
 import com.zhpan.oneandroid.model.response.ProjectResponse
+import com.zhpan.oneandroid.model.bean.User
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -35,7 +35,7 @@ interface ApiService {
     fun login(
         @Field("username") username: String,
         @Field("password") password: String
-    ): Observable<LoginResponse>
+    ): Observable<User>
 
     @GET("banner/json")
     fun getBannerData(): Observable<List<BannerBean>>

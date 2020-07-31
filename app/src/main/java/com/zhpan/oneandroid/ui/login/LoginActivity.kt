@@ -1,16 +1,14 @@
 package com.zhpan.oneandroid.ui.login
 
 import android.os.Bundle
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.ToastUtils
 import com.zhpan.library.base.BaseActivity
-import com.zhpan.library.base.BaseViewModel
 import com.zhpan.library.utils.InputTextHelper
 import com.zhpan.oneandroid.R
 import com.zhpan.oneandroid.databinding.ActivityLoginBinding
-import com.zhpan.oneandroid.model.response.LoginResponse
+import com.zhpan.oneandroid.model.bean.User
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**
@@ -36,7 +34,7 @@ class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>() {
                 et_username.text.toString(),
                 et_password.text.toString()
             )?.observe(this@LoginActivity,
-                Observer<LoginResponse> { t ->
+                Observer<User> { t ->
                     if (t != null) {
                         ToastUtils.showShort("登录成功！")
                         finish()

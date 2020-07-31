@@ -3,7 +3,7 @@ package com.zhpan.oneandroid.ui.login
 import androidx.lifecycle.MutableLiveData
 import com.zhpan.library.base.BaseViewModel
 import com.zhpan.library.base.IActivityHost
-import com.zhpan.oneandroid.model.response.LoginResponse
+import com.zhpan.oneandroid.model.bean.User
 
 
 /**
@@ -18,7 +18,7 @@ class LoginViewModel(var loginRepository: LoginRepository) : BaseViewModel() {
         iActivityHost: IActivityHost,
         username: String,
         password: String
-    ): MutableLiveData<LoginResponse> {
+    ): MutableLiveData<User> {
         return loginRepository.login(iActivityHost, true, username, password)
     }
 }

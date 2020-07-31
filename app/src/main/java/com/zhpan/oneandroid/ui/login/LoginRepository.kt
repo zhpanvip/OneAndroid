@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.zhpan.library.base.IActivityHost
 import com.zhpan.library.server.common.ResponseObserver
 import com.zhpan.oneandroid.base.BaseRepository
-import com.zhpan.oneandroid.model.response.LoginResponse
+import com.zhpan.oneandroid.model.bean.User
 import com.zhpan.oneandroid.utils.RxUtils
 
 
@@ -20,12 +20,12 @@ class LoginRepository : BaseRepository() {
         showLoading: Boolean,
         username: String,
         password: String
-    ): MutableLiveData<LoginResponse> {
-        val mutableLiveData = MutableLiveData<LoginResponse>()
+    ): MutableLiveData<User> {
+        val mutableLiveData = MutableLiveData<User>()
         getApiService().login(username, password)
-            ?.compose(RxUtils.rxSchedulerHelper(iActivityHost, showLoading))
-            ?.subscribe(object : ResponseObserver<LoginResponse>() {
-                override fun onSuccess(response: LoginResponse?) {
+            .compose(RxUtils.rxSchedulerHelper(iActivityHost, showLoading))
+            .subscribe(object : ResponseObserver<User>() {
+                override fun onSuccess(response: User?) {
                     mutableLiveData.value = response
                 }
 
