@@ -35,7 +35,7 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
                     bottomNavigationView.menu.getItem(position).isChecked = true
                 }
             })
-//            offscreenPageLimit = 4
+            offscreenPageLimit = 4
             isUserInputEnabled = false
         }
         toolbar.apply {
