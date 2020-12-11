@@ -9,6 +9,7 @@ import com.zhpan.library.utils.InputTextHelper
 import com.zhpan.oneandroid.R
 import com.zhpan.oneandroid.databinding.ActivityLoginBinding
 import com.zhpan.oneandroid.model.bean.User
+import com.zhpan.oneandroid.utils.UserInfoHelper
 import kotlinx.android.synthetic.main.activity_login.*
 
 /**
@@ -31,12 +32,13 @@ class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>() {
         btn_login.setOnClickListener {
             mViewModel?.login(
                 this@LoginActivity,
-                et_username.text.toString(),
-                et_password.text.toString()
+                et_username.text.toString().trim(),
+                et_password.text.toString().trim()
             )?.observe(this@LoginActivity,
-                Observer<User> { t ->
-                    if (t != null) {
+                Observer<User> { user ->
+                    if (user != null) {
                         ToastUtils.showShort("登录成功！")
+                        UserInfoHelper.setUserInfoBean(this, user)
                         finish()
                     }
                 })

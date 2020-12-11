@@ -4,9 +4,7 @@ import com.blankj.utilcode.util.Utils
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.zhpan.library.server.converter.GsonConverterFactory
-import com.zhpan.library.server.interceptor.HttpCacheInterceptor
-import com.zhpan.library.server.interceptor.HttpHeaderInterceptor
-import com.zhpan.library.server.interceptor.LoggingInterceptor
+import com.zhpan.library.server.interceptor.*
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -33,6 +31,8 @@ object RetrofitManager {
                     TimeUnit.MILLISECONDS
                 )
                 .addInterceptor(LoggingInterceptor())
+                .addInterceptor(CookiesInterceptor())
+                .addInterceptor(AddCookiesInterceptor())
                 .addInterceptor(HttpHeaderInterceptor())
                 .addNetworkInterceptor(HttpCacheInterceptor())
                 .cache(cache)

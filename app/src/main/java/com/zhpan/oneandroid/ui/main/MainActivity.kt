@@ -3,8 +3,11 @@ package com.zhpan.oneandroid.ui.main
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.zhpan.library.base.BaseActivity
 import com.zhpan.library.base.BaseViewModel
 import com.zhpan.oneandroid.R
@@ -16,6 +19,7 @@ import com.zhpan.oneandroid.ui.login.LoginActivity
 import com.zhpan.oneandroid.ui.setting.SettingActivity
 import com.zhpan.oneandroid.ui.share.MyShareActivity
 import com.zhpan.oneandroid.ui.todo.ToDoActivity
+import com.zhpan.oneandroid.utils.UserInfoHelper
 
 class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
 
@@ -69,8 +73,15 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
         }
         mBinding.title = getString(R.string.tab_home)
         nav_view.getHeaderView(0).setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
+            if (!UserInfoHelper.isLogin()) {
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
         }
+        val userName = nav_view.getHeaderView(0).findViewById<TextView>(R.id.tv_user_id)
+        val userAvatar = nav_view.getHeaderView(0).findViewById<ImageView>(R.id.avatar)
+        userName.text = UserInfoHelper.getUserName()
+        Glide.with(userAvatar).load(UserInfoHelper.getUserAvatarUrl())
+            .placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(userAvatar);
     }
 
     private fun setListener() {

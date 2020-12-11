@@ -21,11 +21,10 @@ class KnowledgeActivity : BaseActivity<BaseViewModel, ActivitySystemBinding>() {
         mBinding.title = bundleExtra.getString(Constants.KEY_KNOWLEDGE_TITLE)
         TabLayoutMediator(
             tabLayout,
-            viewPager2,
-            TabLayoutMediator.TabConfigurationStrategy { tab, position ->
-                tab.text = knowledgeList[position].name
-            }).attach()
-
+            viewPager2
+        ) { tab, position ->
+            tab.text = knowledgeList[position].name
+        }.attach()
     }
     override fun getLayoutId(): Int = R.layout.activity_system
 }
