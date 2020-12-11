@@ -17,7 +17,7 @@ public class LoadingHelper {
     public static <T> ObservableTransformer<T, T> applyProgressBar(
             @NonNull final Activity activity, String msg) {
         final WeakReference<Activity> activityWeakReference = new WeakReference<>(activity);
-        final LoadingDialogUtils dialogUtils = new LoadingDialogUtils();
+        final LoadingUtils dialogUtils = new LoadingUtils();
         dialogUtils.showProgress(activityWeakReference.get());
         return upstream -> upstream.doOnSubscribe(disposable -> {
         }).doOnTerminate(() -> {

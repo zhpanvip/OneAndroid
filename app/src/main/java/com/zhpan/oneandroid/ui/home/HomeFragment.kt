@@ -83,8 +83,8 @@ class HomeFragment : BaseFragment<HomeViewModel, LayoutArticleListBinding>() {
             false
         )
         mBannerBinding?.adapter = BannerAdapter()
-        mBannerBinding?.pageClick = BannerViewPager.OnPageClickListener {
-            val data = mBannerBinding!!.bannerView.getData()[it]
+        mBannerBinding?.pageClick = BannerViewPager.OnPageClickListener { _, position ->
+            val data = mBannerBinding!!.bannerView.getData()[position]
             if (data is BannerBean) {
                 WebViewActivity.start(requireContext(), data.title!!, data.url!!)
             }

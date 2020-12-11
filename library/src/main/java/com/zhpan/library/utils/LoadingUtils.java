@@ -11,7 +11,7 @@ import com.zhpan.library.dialog.LoadingDialog;
  * Description:
  */
 
-public class LoadingDialogUtils {
+public class LoadingUtils {
     private LoadingDialog mProgressDialog;
     /**
      * 显示ProgressDialog

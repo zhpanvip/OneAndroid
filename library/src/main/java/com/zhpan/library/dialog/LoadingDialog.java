@@ -3,43 +3,43 @@ package com.zhpan.library.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.zhpan.library.R;
 
 public class LoadingDialog extends Dialog {
-    private View mDialogView;
-    private boolean cancelTouchOutside;
+
+    private final boolean cancelTouchOutside;
     private LottieAnimationView lottieAnimationView;
+    private String message;
+    private static final int KEY_NO_DIALOG_STYLE = -1;
 
     public LoadingDialog(Builder builder) {
         super(builder.context);
-        mDialogView = builder.mDialogView;
         cancelTouchOutside = builder.cancelTouchOutside;
     }
 
     private LoadingDialog(Builder builder, int themeResId) {
         super(builder.context, themeResId);
-        mDialogView = builder.mDialogView;
         cancelTouchOutside = builder.cancelTouchOutside;
+        this.message = builder.message;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(mDialogView);
+        setContentView(R.layout.layout_loading_dialog);
+        TextView tvMessage = (TextView) findViewById(R.id.tv_loading);
+        if (tvMessage != null) {
+            tvMessage.setText(message);
+        }
         setCanceledOnTouchOutside(cancelTouchOutside);
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        if (mDialogView == null) {
-            return;
-        }
-        lottieAnimationView = mDialogView.findViewById(R.id.loadingImageView);
+        lottieAnimationView = findViewById(R.id.loadingImageView);
         lottieAnimationView.playAnimation();
     }
 
@@ -51,31 +51,27 @@ public class LoadingDialog extends Dialog {
 
     public static final class Builder {
         Context context;
-        private int resStyle = -1;
-        private View mDialogView;
+        private int themeResId = KEY_NO_DIALOG_STYLE;
+        private String message;
         private boolean cancelTouchOutside;
 
         public Builder(Context context) {
             this.context = context;
-            mDialogView = LayoutInflater.from(context).inflate(R.layout.layout_loading_dialog, null);
         }
 
         /**
          * 设置主题
          *
-         * @param resStyle style id
+         * @param themeResId theme res id
          * @return CustomProgressDialog.Builder
          */
-        public Builder setTheme(int resStyle) {
-            this.resStyle = resStyle;
+        public Builder setTheme(int themeResId) {
+            this.themeResId = themeResId;
             return this;
         }
 
         public Builder setMessage(String message) {
-            TextView tvMessage = (TextView) mDialogView.findViewById(R.id.tv_loading);
-            if (tvMessage != null) {
-                tvMessage.setText(message);
-            }
+            this.message = message;
             return this;
         }
 
@@ -83,7 +79,7 @@ public class LoadingDialog extends Dialog {
          * 设置点击dialog外部是否取消dialog
          *
          * @param val 点击外部是否取消dialog
-         * @return
+         * @return Builder
          */
         public Builder cancelTouchOutside(boolean val) {
             cancelTouchOutside = val;
@@ -91,10 +87,10 @@ public class LoadingDialog extends Dialog {
         }
 
         public LoadingDialog build() {
-            if (resStyle != -1) {
-                return new LoadingDialog(this, resStyle);
-            } else {
+            if (themeResId == KEY_NO_DIALOG_STYLE) {
                 return new LoadingDialog(this);
+            } else {
+                return new LoadingDialog(this, themeResId);
             }
         }
     }

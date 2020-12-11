@@ -1,6 +1,7 @@
 package com.zhpan.oneandroid.adapter
 
 import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.zhpan.bannerview.BaseBannerAdapter
 import com.zhpan.oneandroid.R
@@ -18,10 +19,13 @@ class BannerAdapter : BaseBannerAdapter<BannerBean, BannerViewHolder>() {
         return R.layout.item_banner
     }
 
-    override fun createViewHolder(itemView: View?, viewType: Int): BannerViewHolder {
+    override fun createViewHolder(
+        parent: ViewGroup,
+        itemView: View?,
+        viewType: Int
+    ): BannerViewHolder {
         return BannerViewHolder(itemView!!)
     }
-
 
     override fun onBind(
         holder: BannerViewHolder?,
@@ -32,6 +36,4 @@ class BannerAdapter : BaseBannerAdapter<BannerBean, BannerViewHolder>() {
         val bind = DataBindingUtil.bind<ItemBannerBinding>(holder!!.itemView)
         bind?.bannerData = data
     }
-
-
 }
