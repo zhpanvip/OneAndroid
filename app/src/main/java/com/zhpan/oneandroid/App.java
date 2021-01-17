@@ -15,5 +15,8 @@ public class App extends Application {
         super.onCreate();
         LogUtils.e("App", "App onCreate");
         UserInfoHelper.INSTANCE.init(this);
+
+
+
     }
 }
