@@ -40,12 +40,9 @@ class ProjectFragment : BaseFragment<ProjectViewModel, FragmentProjectBinding>()
                 fragmentAdapter?.projectTree = it
                 fragmentAdapter?.notifyDataSetChanged()
                 tabLayout.visibility = View.VISIBLE
-                TabLayoutMediator(
-                    tabLayout,
-                    viewPager2,
-                    TabLayoutMediator.TabConfigurationStrategy { tab, position ->
-                        tab.text = fragmentAdapter!!.projectTree[position].name
-                    }).attach()
+                TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
+                    tab.text = fragmentAdapter!!.projectTree[position].name
+                }.attach()
             }
         })
     }

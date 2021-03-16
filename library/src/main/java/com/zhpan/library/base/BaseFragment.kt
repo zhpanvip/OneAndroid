@@ -36,6 +36,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : RxFragme
     protected var mViewModel: VM? = null
     protected var mRefreshLayout: SmartRefreshLayout? = null
     protected var page: Int = 0
+    private var isDataLoaded: Boolean = false
 
     companion object {
         const val DEFAULT_PAGE_SIZE = 20
@@ -63,7 +64,15 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : RxFragme
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mBinding?.lifecycleOwner = this
-        fetchData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // 处理懒加载
+        if (!isDataLoaded) {
+            isDataLoaded = true
+            fetchData()
+        }
     }
 
     override fun onDestroy() {

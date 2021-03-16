@@ -31,8 +31,7 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
     private fun initView() {
         setTransparentStatusBar()
         with(viewPager2) {
-            adapter =
-                MainFragmentStateAdapter(this@MainActivity)
+            adapter = MainFragmentStateAdapter(this@MainActivity)
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)

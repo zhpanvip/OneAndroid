@@ -14,9 +14,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/dp_16"
         android:translationZ="@dimen/dp_3"
-        app:cardCornerRadius="@dimen/common_radius"
         app:cardElevation="@dimen/dp_5">
 
         <com.zhpan.library.view.CornerImageView

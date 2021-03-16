@@ -41,7 +41,6 @@ public class DataBindingAdapter {
                 .setOnPageClickListener(pageClickListener)
                 .setIndicatorSliderColor(resources.getColor(R.color.color_slider_normal),
                         resources.getColor(R.color.colorPrimary))
-                .setPageStyle(PageStyle.MULTI_PAGE_SCALE)
                 .setIndicatorSliderWidth(
                         resources.getDimensionPixelOffset(R.dimen.dp_4),
                         resources.getDimensionPixelOffset(R.dimen.dp_10))
