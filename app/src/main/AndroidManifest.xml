@@ -31,7 +31,7 @@
         <activity android:name=".ui.TestActivity" />
         <activity
             android:name=".ui.splash.SplashActivity"
-            android:theme="@style/AppTheme.TranslucentStatus">
+            android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_splash.*
 class SplashActivity : BaseActivity<BaseViewModel, ActivitySplashBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        setTheme(R.style.AppTheme_TranslucentStatus)
         setTransparentStatusBar()
         setStatusBarDarkMode(false)
         lottie_view.addAnimatorListener(object : Animator.AnimatorListener {
