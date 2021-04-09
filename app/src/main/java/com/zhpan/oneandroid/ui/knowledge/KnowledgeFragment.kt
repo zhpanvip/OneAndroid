@@ -32,7 +32,7 @@ class KnowledgeFragment : BaseFragment<KnowledgeViewModel, LayoutSystemListBindi
         }
     }
 
-    override fun fetchData() {
+    override fun onLazyLoad() {
         fetchSystemList(true)
     }
 

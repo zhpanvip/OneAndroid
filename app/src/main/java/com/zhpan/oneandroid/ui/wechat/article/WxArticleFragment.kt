@@ -40,7 +40,7 @@ class WxArticleFragment : BaseFragment<WeChatArticleViewModel, LayoutArticleList
         super.onCreate(savedInstanceState)
     }
 
-    override fun fetchData() {
+    override fun onLazyLoad() {
         fetchArticles(isRefresh = false, showLoading = true)
     }
 

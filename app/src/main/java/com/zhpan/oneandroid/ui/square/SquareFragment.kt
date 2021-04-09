@@ -26,7 +26,7 @@ class SquareFragment : BaseFragment<SquareViewModel, LayoutArticleListBinding>()
         }
     }
 
-    override fun fetchData() {
+    override fun onLazyLoad() {
         setRefreshLayout(R.id.refresh_layout)
         mViewModel =
             ViewModelProvider(requireActivity(), SquareViewModelFactory(SquareRepository())).get(

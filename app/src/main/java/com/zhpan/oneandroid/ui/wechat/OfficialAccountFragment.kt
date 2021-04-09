@@ -37,7 +37,7 @@ class OfficialAccountFragment :
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun fetchData() {
+    override fun onLazyLoad() {
         fetchOfficialAccount(isRefresh = false, showLoading = true)
     }
 

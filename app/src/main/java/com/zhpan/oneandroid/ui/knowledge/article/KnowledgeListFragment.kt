@@ -32,7 +32,7 @@ class KnowledgeListFragment : BaseFragment<KnowledgeListViewModel, FragmentKnowl
             }
     }
 
-    override fun fetchData() {
+    override fun onLazyLoad() {
         fetchArticles(isRefresh = false, showLoading = true)
     }
 
