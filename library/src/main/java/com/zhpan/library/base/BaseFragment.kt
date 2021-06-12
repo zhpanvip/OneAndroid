@@ -71,7 +71,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : RxFragme
         // 处理懒加载
         if (!isDataLoaded) {
             isDataLoaded = true
-            fetchData()
+            onLazyLoad()
         }
     }
 
@@ -123,7 +123,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : RxFragme
 
     }
 
-    abstract fun fetchData()
+    abstract fun onLazyLoad()
 
     abstract fun initView()
 

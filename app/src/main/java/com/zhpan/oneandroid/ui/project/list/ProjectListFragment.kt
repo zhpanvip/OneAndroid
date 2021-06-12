@@ -44,7 +44,7 @@ class ProjectListFragment : BaseFragment<ProjectListViewModel, FragmentProjectLi
             }
     }
 
-    override fun fetchData() {
+    override fun onLazyLoad() {
         fetchProjectList(isRefresh = false, showLoading = true)
     }
 

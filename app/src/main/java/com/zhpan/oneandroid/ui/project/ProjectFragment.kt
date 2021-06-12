@@ -30,7 +30,7 @@ class ProjectFragment : BaseFragment<ProjectViewModel, FragmentProjectBinding>()
         }
     }
 
-    override fun fetchData() {
+    override fun onLazyLoad() {
         fetchProjectTrees(isRefresh = false, showLoading = true)
     }
 

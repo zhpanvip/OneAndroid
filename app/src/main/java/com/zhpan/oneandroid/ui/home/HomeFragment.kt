@@ -39,7 +39,7 @@ class HomeFragment : BaseFragment<HomeViewModel, LayoutArticleListBinding>() {
     }
 
     private var mBannerBinding: LayoutBannerBinding? = null
-    override fun fetchData() {
+    override fun onLazyLoad() {
         setRefreshLayout(R.id.refresh_layout)
         mViewModel =
             ViewModelProvider(requireActivity(), HomeViewModelFactory(HomeRepository())).get(
