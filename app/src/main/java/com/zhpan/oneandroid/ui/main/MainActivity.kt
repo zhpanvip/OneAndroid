@@ -3,6 +3,7 @@ package com.zhpan.oneandroid.ui.main
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Debug
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -28,6 +29,11 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
         setListener()
     }
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+//        Debug.stopMethodTracing()
+    }
+
     private fun initView() {
         setTransparentStatusBar()
         with(viewPager2) {
@@ -46,11 +52,11 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
         }
         drawerLayout.apply {
             val drawerToggle = ActionBarDrawerToggle(
-                this@MainActivity,
-                this,
-                toolbar,
-                R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close
+                    this@MainActivity,
+                    this,
+                    toolbar,
+                    R.string.navigation_drawer_open,
+                    R.string.navigation_drawer_close
             )
             addDrawerListener(drawerToggle)
             drawerToggle.syncState()
@@ -80,7 +86,7 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
         val userAvatar = nav_view.getHeaderView(0).findViewById<ImageView>(R.id.avatar)
         userName.text = UserInfoHelper.getUserName()
         Glide.with(userAvatar).load(UserInfoHelper.getUserAvatarUrl())
-            .placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(userAvatar);
+                .placeholder(R.mipmap.ic_launcher).error(R.mipmap.ic_launcher).into(userAvatar);
     }
 
     private fun setListener() {
