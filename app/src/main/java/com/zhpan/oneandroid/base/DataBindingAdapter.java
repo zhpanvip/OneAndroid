@@ -28,7 +28,7 @@ import com.zhpan.oneandroid.model.bean.BannerBean;
 public class DataBindingAdapter {
     @BindingAdapter(value = {"binding:adapter", "binding:indicator", "binding:pageClick"}, requireAll = false)
     public static void
-    bindBanner(BannerViewPager<BannerBean, BannerViewHolder> banner,
+    bindBanner(BannerViewPager<BannerBean> banner,
                BannerAdapter adapter, BaseIndicatorView indicatorView,
                BannerViewPager.OnPageClickListener pageClickListener) {
         Resources resources = banner.getContext().getResources();
