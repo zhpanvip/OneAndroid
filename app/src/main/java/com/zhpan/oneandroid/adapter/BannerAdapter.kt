@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.zhpan.bannerview.BaseBannerAdapter
+import com.zhpan.bannerview.BaseViewHolder
 import com.zhpan.oneandroid.R
 import com.zhpan.oneandroid.databinding.ItemBannerBinding
 import com.zhpan.oneandroid.model.bean.BannerBean
@@ -14,7 +15,7 @@ import com.zhpan.oneandroid.model.bean.BannerBean
  *   Description:
  * </pre>
  */
-class BannerAdapter : BaseBannerAdapter<BannerBean, BannerViewHolder>() {
+class BannerAdapter : BaseBannerAdapter<BannerBean>() {
     override fun getLayoutId(viewType: Int): Int {
         return R.layout.item_banner
     }
@@ -27,8 +28,9 @@ class BannerAdapter : BaseBannerAdapter<BannerBean, BannerViewHolder>() {
         return BannerViewHolder(itemView!!)
     }
 
-    override fun onBind(
-        holder: BannerViewHolder?,
+
+    override fun bindData(
+        holder: BaseViewHolder<BannerBean>?,
         data: BannerBean?,
         position: Int,
         pageSize: Int

@@ -17,12 +17,12 @@ import com.zhpan.oneandroid.model.bean.BannerBean
 class BannerViewHolder(itemView: View) :
     BaseViewHolder<BannerBean>(itemView) {
     override fun bindData(data: BannerBean, position: Int, pageSize: Int) {
-        val imageView = findView<CornerImageView>(R.id.banner_image)
+        val imageView = findViewById<CornerImageView>(R.id.banner_image)
         Glide.with(imageView).load(data.imagePath).into(imageView)
     }
 
     init {
-        val imageView = findView<CornerImageView>(R.id.banner_image)
+        val imageView = findViewById<CornerImageView>(R.id.banner_image)
         imageView.setRoundCorner(BannerUtils.dp2px(0f))
     }
 }
