@@ -1,12 +1,10 @@
 package com.zhpan.oneandroid.ui.home
 
-import androidx.lifecycle.MutableLiveData
-import com.zhpan.library.base.IFragmentHost
-import com.zhpan.library.server.common.ResponseObserver
+import com.zhpan.library.network.StateLiveData
+import com.zhpan.oneandroid.api.RetrofitCreator2
 import com.zhpan.oneandroid.model.response.ArticleResponse
 import com.zhpan.oneandroid.model.bean.BannerBean
-import com.zhpan.oneandroid.base.BaseRepository
-import com.zhpan.oneandroid.utils.RxUtils
+import com.zhpan.oneandroid.base.BaseAppRepository
 
 /**
  * <pre>
@@ -14,47 +12,21 @@ import com.zhpan.oneandroid.utils.RxUtils
  *   Description:
  * </pre>
  */
-class HomeRepository : BaseRepository() {
-    fun getHomeArticles(
-        page: Int,
-        fragmentHost: IFragmentHost,
-        showLoading: Boolean
-    ): MutableLiveData<ArticleResponse> {
-        val liveData: MutableLiveData<ArticleResponse> = MutableLiveData()
-        getApiService().getHomeArticles(page)
-            .compose(RxUtils.rxSchedulerHelper(fragmentHost, showLoading))
-            ?.subscribe(object : ResponseObserver<ArticleResponse>() {
+class HomeRepository : BaseAppRepository() {
 
-                override fun onSuccess(response: ArticleResponse?) {
-                    liveData.value = response
-                }
+  suspend fun getHomeArticles(
+    page: Int,
+    stateLiveData: StateLiveData<ArticleResponse>,
+    showLoading:Boolean
+  ) {
+    executeRequest({
+      RetrofitCreator2.getLoginAPI().getHomeArticles(page)
+    }, stateLiveData,showLoading)
+  }
 
-                override fun onFail(errorCode: Int, message: String?) {
-                    super.onFail(errorCode, message)
-                    liveData.value = null
-                }
-
-            })
-        return liveData
-    }
-
-    fun getBannerData(
-        fragmentHost: IFragmentHost
-    ): MutableLiveData<List<BannerBean>> {
-        val liveData: MutableLiveData<List<BannerBean>> = MutableLiveData()
-        getApiService().getBannerData()
-            .compose(RxUtils.rxSchedulerHelper(fragmentHost, false))
-            ?.subscribe(object : ResponseObserver<List<BannerBean>>() {
-
-                override fun onSuccess(response: List<BannerBean>?) {
-                    liveData.value = response
-                }
-
-                override fun onFail(errorCode: Int, message: String?) {
-                    super.onFail(errorCode, message)
-                    liveData.value = null
-                }
-            })
-        return liveData
-    }
+  suspend fun getBannerData(bannerLiveData: StateLiveData<List<BannerBean>>) {
+    executeRequest({
+      RetrofitCreator2.getLoginAPI().getBannerData()
+    }, bannerLiveData)
+  }
 }

@@ -3,7 +3,7 @@ package com.zhpan.oneandroid.ui.wechat
 import androidx.lifecycle.MutableLiveData
 import com.zhpan.library.base.IFragmentHost
 import com.zhpan.library.server.common.ResponseObserver
-import com.zhpan.oneandroid.base.BaseRepository
+import com.zhpan.oneandroid.base.BaseAppRepository
 import com.zhpan.oneandroid.model.bean.OfficialAccountBean
 import com.zhpan.oneandroid.utils.RxUtils
 
@@ -12,7 +12,7 @@ import com.zhpan.oneandroid.utils.RxUtils
  * @author zhangpan
  * @date 2020/7/22
  */
-class OfficialAccountRepository : BaseRepository() {
+class OfficialAccountRepository : BaseAppRepository() {
     fun getOfficialAccounts(
         iPageHost: IFragmentHost,
         showLoading: Boolean

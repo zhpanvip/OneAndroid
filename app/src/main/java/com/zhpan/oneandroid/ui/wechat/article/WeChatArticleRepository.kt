@@ -3,7 +3,7 @@ package com.zhpan.oneandroid.ui.wechat.article
 import androidx.lifecycle.MutableLiveData
 import com.zhpan.library.base.IFragmentHost
 import com.zhpan.library.server.common.ResponseObserver
-import com.zhpan.oneandroid.base.BaseRepository
+import com.zhpan.oneandroid.base.BaseAppRepository
 import com.zhpan.oneandroid.model.response.ArticleResponse
 import com.zhpan.oneandroid.utils.RxUtils
 
@@ -12,7 +12,7 @@ import com.zhpan.oneandroid.utils.RxUtils
  * @author zhangpan
  * @date 2020/7/23
  */
-class WeChatArticleRepository : BaseRepository() {
+class WeChatArticleRepository : BaseAppRepository() {
     fun getWeChatArticles(
         iFragmentHost: IFragmentHost,
         accountId: String?,

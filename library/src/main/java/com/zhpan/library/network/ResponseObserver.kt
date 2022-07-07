@@ -19,7 +19,9 @@ abstract class ResponseObserver<T> : Observer<BasicResponse<T>> {
 
   abstract fun onSuccess(data: T?)
 
-  abstract fun onFail(errorCode: Int, errorMsg: String?)
+  open fun onFail(errorCode: Int, errorMsg: String?) {
+    ToastUtils.showShort("ErrorCode:$errorCode ErrorMessage:$errorMsg")
+  }
 
   private fun onException(exception: Throwable?) {
     ToastUtils.showShort(exception.toString())

@@ -3,14 +3,14 @@ package com.zhpan.oneandroid.ui.main
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Debug
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.zhpan.library.base.BaseActivity
-import com.zhpan.library.base.BaseViewModel
+import com.zhpan.library.base.BaseRepository
+import com.zhpan.library.base.NewBaseActivity
+import com.zhpan.library.base.NewBaseViewModel
 import com.zhpan.oneandroid.R
 import kotlinx.android.synthetic.main.activity_main.*
 import com.zhpan.oneandroid.databinding.ActivityMainBinding
@@ -22,7 +22,7 @@ import com.zhpan.oneandroid.ui.share.MyShareActivity
 import com.zhpan.oneandroid.ui.todo.ToDoActivity
 import com.zhpan.oneandroid.utils.UserInfoHelper
 
-class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
+class MainActivity(override var layoutId: Int= R.layout.activity_main) : NewBaseActivity<MainViewModel, ActivityMainBinding>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         initView()
@@ -118,6 +118,4 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
             false
         }
     }
-
-    override fun getLayoutId(): Int = R.layout.activity_main
 }

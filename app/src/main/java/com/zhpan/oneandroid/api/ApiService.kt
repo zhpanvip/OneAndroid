@@ -15,8 +15,7 @@ import retrofit2.http.*
  */
 interface ApiService {
 
-    @GET("/article/list/{page}/json")
-    fun getHomeArticles(@Path("page") page: Int): Observable<ArticleResponse>
+
 
     @GET("user_article/list/{page}/json")
     fun getSquareArticles(@Path("page") page: Int): Observable<ArticleResponse>

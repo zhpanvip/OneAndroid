@@ -3,7 +3,7 @@ package com.zhpan.oneandroid.ui.project
 import androidx.lifecycle.MutableLiveData
 import com.zhpan.library.base.IFragmentHost
 import com.zhpan.library.server.common.ResponseObserver
-import com.zhpan.oneandroid.base.BaseRepository
+import com.zhpan.oneandroid.base.BaseAppRepository
 import com.zhpan.oneandroid.model.bean.ProjectClassify
 import com.zhpan.oneandroid.utils.RxUtils
 
@@ -14,7 +14,7 @@ import com.zhpan.oneandroid.utils.RxUtils
  *   Description:
  * </pre>
  */
-class ProjectRepository : BaseRepository() {
+class ProjectRepository : BaseAppRepository() {
 
     fun getProjectTrees(
         iFragment: IFragmentHost,

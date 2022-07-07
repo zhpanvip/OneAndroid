@@ -1,12 +1,9 @@
 package com.zhpan.oneandroid.ui.login
 
-import androidx.lifecycle.MutableLiveData
-import com.zhpan.library.base.IActivityHost
-import com.zhpan.library.server.common.ResponseObserver
-import com.zhpan.oneandroid.base.BaseRepository
+import com.zhpan.library.network.StateLiveData
+import com.zhpan.oneandroid.api.RetrofitCreator2
+import com.zhpan.oneandroid.base.BaseAppRepository
 import com.zhpan.oneandroid.model.bean.User
-import com.zhpan.oneandroid.utils.RxUtils
-
 
 /**
  * <pre>
@@ -14,26 +11,10 @@ import com.zhpan.oneandroid.utils.RxUtils
  *   Description:
  * </pre>
  */
-class LoginRepository : BaseRepository() {
-    fun login(
-        iActivityHost: IActivityHost,
-        showLoading: Boolean,
-        username: String,
-        password: String
-    ): MutableLiveData<User> {
-        val mutableLiveData = MutableLiveData<User>()
-        getApiService().login(username, password)
-            .compose(RxUtils.rxSchedulerHelper(iActivityHost, showLoading))
-            .subscribe(object : ResponseObserver<User>() {
-                override fun onSuccess(response: User?) {
-                    mutableLiveData.value = response
-                }
-
-                override fun onFail(errorCode: Int, message: String?) {
-                    super.onFail(errorCode, message)
-                    mutableLiveData.value = null
-                }
-            })
-        return mutableLiveData
-    }
+class LoginRepository : BaseAppRepository() {
+  suspend fun login(userName: String, password: String, loginLiveData: StateLiveData<User>) {
+    executeRequest({
+      RetrofitCreator2.getLoginAPI().login(userName, password)
+    }, loginLiveData)
+  }
 }

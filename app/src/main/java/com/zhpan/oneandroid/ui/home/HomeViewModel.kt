@@ -1,11 +1,11 @@
 package com.zhpan.oneandroid.ui.home
 
-import androidx.lifecycle.MutableLiveData
-import com.zhpan.library.base.BaseViewModel
-import com.zhpan.library.base.IFragmentHost
+import androidx.lifecycle.viewModelScope
+import com.zhpan.library.base.NewBaseViewModel
+import com.zhpan.library.network.StateLiveData
 import com.zhpan.oneandroid.model.response.ArticleResponse
 import com.zhpan.oneandroid.model.bean.BannerBean
-
+import kotlinx.coroutines.launch
 
 /**
  * <pre>
@@ -13,17 +13,24 @@ import com.zhpan.oneandroid.model.bean.BannerBean
  *   Description:
  * </pre>
  */
-class HomeViewModel(private val homeRepository: HomeRepository) : BaseViewModel() {
+class HomeViewModel() : NewBaseViewModel<HomeRepository>() {
 
-    fun getHomeArticles(
-        fragmentHost: IFragmentHost,
-        page: Int,
-        showLoading: Boolean
-    ): MutableLiveData<ArticleResponse> {
-        return homeRepository.getHomeArticles(page, fragmentHost, showLoading)
-    }
+  var bannerLiveData: StateLiveData<List<BannerBean>> = StateLiveData()
+  var articleLiveData: StateLiveData<ArticleResponse> = StateLiveData()
 
-    fun getBannerData(fragmentHost: IFragmentHost): MutableLiveData<List<BannerBean>> {
-        return homeRepository.getBannerData(fragmentHost)
+  fun getHomeArticles(page: Int, showLoading: Boolean) {
+    viewModelScope.launch {
+      repository.getHomeArticles(page, articleLiveData, showLoading)
     }
+  }
+
+  fun getBannerData() {
+    viewModelScope.launch {
+      repository.getBannerData(bannerLiveData)
+    }
+  }
+
+  override fun createRepository(): HomeRepository {
+    return HomeRepository()
+  }
 }

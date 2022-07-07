@@ -3,8 +3,7 @@ package com.zhpan.oneandroid.ui.project.list
 import androidx.lifecycle.MutableLiveData
 import com.zhpan.library.base.IFragmentHost
 import com.zhpan.library.server.common.ResponseObserver
-import com.zhpan.oneandroid.base.BaseRepository
-import com.zhpan.oneandroid.model.bean.ProjectBean
+import com.zhpan.oneandroid.base.BaseAppRepository
 import com.zhpan.oneandroid.model.response.ProjectResponse
 import com.zhpan.oneandroid.utils.RxUtils
 
@@ -15,7 +14,7 @@ import com.zhpan.oneandroid.utils.RxUtils
  *   Description:
  * </pre>
  */
-class ProjectListRepository : BaseRepository() {
+class ProjectListRepository : BaseAppRepository() {
     fun getProjectList(
         iFragmentHost: IFragmentHost,
         showLoading: Boolean,

@@ -25,7 +25,7 @@ import java.io.Serializable
 class KnowledgeFragment : BaseFragment<KnowledgeViewModel, LayoutSystemListBinding>() {
 
     companion object {
-        val SYSTEM_MAP_ITEMS: String = "SYSTEM_MAP_ITEMS"
+        const val SYSTEM_MAP_ITEMS: String = "SYSTEM_MAP_ITEMS"
 
         fun getInstance(): KnowledgeFragment {
             return KnowledgeFragment()

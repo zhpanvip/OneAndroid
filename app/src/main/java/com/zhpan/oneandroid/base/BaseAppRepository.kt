@@ -1,5 +1,6 @@
 package com.zhpan.oneandroid.base
 
+import com.zhpan.library.base.BaseRepository
 import com.zhpan.oneandroid.api.ApiService
 import com.zhpan.oneandroid.api.RetrofitCreator
 
@@ -9,7 +10,7 @@ import com.zhpan.oneandroid.api.RetrofitCreator
  * Description:
 </pre> *
  */
-open class BaseRepository {
+open class BaseAppRepository :BaseRepository(){
 
     fun getApiService(): ApiService {
         return RetrofitCreator.apiService
