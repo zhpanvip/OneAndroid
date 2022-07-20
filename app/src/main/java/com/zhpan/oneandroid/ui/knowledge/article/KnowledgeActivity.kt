@@ -2,9 +2,7 @@ package com.zhpan.oneandroid.ui.knowledge.article
 
 import android.os.Bundle
 import com.google.android.material.tabs.TabLayoutMediator
-import com.zhpan.library.base.BaseRepository
-import com.zhpan.library.base.NewBaseActivity
-import com.zhpan.library.base.NewBaseViewModel
+import com.zhpan.library.base.BaseActivity
 import com.zhpan.oneandroid.R
 import com.zhpan.oneandroid.adapter.KnowledgeFragmentAdapter
 import com.zhpan.oneandroid.base.Constants
@@ -14,7 +12,7 @@ import com.zhpan.oneandroid.ui.knowledge.KnowledgeFragment.Companion.SYSTEM_MAP_
 import kotlinx.android.synthetic.main.activity_system.*
 
 class KnowledgeActivity(override var layoutId: Int = R.layout.activity_system) :
-  NewBaseActivity<KnowledgeViewModel, ActivitySystemBinding>() {
+  BaseActivity<KnowledgeViewModel, ActivitySystemBinding>() {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     val bundleExtra = intent.getBundleExtra(SYSTEM_MAP_ITEMS)

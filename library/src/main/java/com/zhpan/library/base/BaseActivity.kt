@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.ToastUtils
 import com.zhpan.library.server.common.DataState
+import com.zhpan.library.utils.LoadingUtils
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -17,13 +18,17 @@ import java.lang.reflect.ParameterizedType
  * @Date: 2022/7/6 15:37
  * @Email: pan.zhang@upuphone.com
  */
-abstract class NewBaseActivity<VM : NewBaseViewModel<*>, DB : ViewDataBinding> : AppCompatActivity() {
+abstract class BaseActivity<VM : NewBaseViewModel<*>, DB : ViewDataBinding> : AppCompatActivity() {
 
   protected val mViewModel by lazy {
     createViewModel()
   }
 
   protected lateinit var mBinding: DB
+
+  private val loadingUtils: LoadingUtils by lazy {
+    LoadingUtils()
+  }
 
   /**
    * layout resource id.
@@ -49,14 +54,14 @@ abstract class NewBaseActivity<VM : NewBaseViewModel<*>, DB : ViewDataBinding> :
    * 显示Loading
    */
   open fun showLoading() {
-    ToastUtils.showShort("showLoading")
+    loadingUtils.showProgress(this)
   }
 
   /**
    * 隐藏Loading
    */
   open fun hideLoading() {
-    ToastUtils.showShort("hideLoading")
+    loadingUtils.dismissProgress()
   }
 
   override fun onDestroy() {

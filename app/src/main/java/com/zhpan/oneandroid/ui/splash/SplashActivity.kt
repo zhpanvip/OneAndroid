@@ -3,14 +3,14 @@ package com.zhpan.oneandroid.ui.splash
 import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
-import com.zhpan.library.base.NewBaseActivity
+import com.zhpan.library.base.BaseActivity
 import com.zhpan.oneandroid.R
 import com.zhpan.oneandroid.databinding.ActivitySplashBinding
 import com.zhpan.oneandroid.ui.main.MainActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 
 class SplashActivity(override var layoutId: Int = R.layout.activity_splash) :
-  NewBaseActivity<SplashViewModel, ActivitySplashBinding>() {
+  BaseActivity<SplashViewModel, ActivitySplashBinding>() {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     setTheme(R.style.AppTheme_TranslucentStatus)

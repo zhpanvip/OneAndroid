@@ -2,7 +2,7 @@ package com.zhpan.oneandroid.ui.login
 
 import android.os.Bundle
 import com.blankj.utilcode.util.ToastUtils
-import com.zhpan.library.base.NewBaseActivity
+import com.zhpan.library.base.BaseActivity
 import com.zhpan.library.network.ResponseObserver
 import com.zhpan.library.utils.InputTextHelper
 import com.zhpan.oneandroid.R
@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_login.*
  * @author zhangpan
  */
 class LoginActivity(override var layoutId: Int = R.layout.activity_login) :
-  NewBaseActivity<LoginViewModel, ActivityLoginBinding>() {
+  BaseActivity<LoginViewModel, ActivityLoginBinding>() {
 
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     setTransparentStatusBar()
