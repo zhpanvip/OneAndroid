@@ -1,9 +1,9 @@
 package com.zhpan.oneandroid.ui.main
 
 import com.zhpan.library.base.BaseRepository
-import com.zhpan.library.base.NewBaseViewModel
+import com.zhpan.library.base.BaseViewModel
 
-class MainViewModel : NewBaseViewModel<BaseRepository>() {
+class MainViewModel : BaseViewModel<BaseRepository>() {
   override fun createRepository(): BaseRepository {
     return BaseRepository()
   }

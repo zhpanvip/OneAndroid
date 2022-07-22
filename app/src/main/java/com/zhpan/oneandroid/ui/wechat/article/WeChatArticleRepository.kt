@@ -1,38 +1,24 @@
 package com.zhpan.oneandroid.ui.wechat.article
 
-import androidx.lifecycle.MutableLiveData
-import com.zhpan.library.base.IFragmentHost
-import com.zhpan.library.server.common.ResponseObserver
-import com.zhpan.oneandroid.base.BaseAppRepository
+import com.zhpan.library.base.BaseRepository
+import com.zhpan.library.network.ResponseMutableLiveData
+import com.zhpan.oneandroid.api.RetrofitCreator
 import com.zhpan.oneandroid.model.response.ArticleResponse
-import com.zhpan.oneandroid.utils.RxUtils
 
 /**
  *
  * @author zhangpan
  * @date 2020/7/23
  */
-class WeChatArticleRepository : BaseAppRepository() {
-    fun getWeChatArticles(
-        iFragmentHost: IFragmentHost,
-        accountId: String?,
-        page: Int,
-        showLoading: Boolean
-    ): MutableLiveData<ArticleResponse> {
-        val liveData: MutableLiveData<ArticleResponse> = MutableLiveData()
-        getApiService().getWechatArticles(accountId, page)
-            .compose(RxUtils.rxSchedulerHelper(iFragmentHost, showLoading))
-            .subscribe(object : ResponseObserver<ArticleResponse>() {
-                override fun onSuccess(response: ArticleResponse?) {
-                    liveData.value = response
-                }
-
-                override fun onFail(errorCode: Int, message: String?) {
-                    super.onFail(errorCode, message)
-                    liveData.value = null
-                }
-
-            })
-        return liveData
-    }
+class WeChatArticleRepository : BaseRepository() {
+  suspend fun getWeChatArticles(
+    responseLiveData: ResponseMutableLiveData<ArticleResponse>,
+    accountId: String?,
+    page: Int,
+    showLoading: Boolean
+  ) {
+    executeRequest({
+      RetrofitCreator.getLoginAPI().getWechatArticles(accountId, page)
+    }, responseLiveData, showLoading)
+  }
 }

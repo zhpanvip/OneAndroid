@@ -1,8 +1,8 @@
 package com.zhpan.oneandroid.ui.login
 
-import com.zhpan.library.network.StateLiveData
-import com.zhpan.oneandroid.api.RetrofitCreator2
-import com.zhpan.oneandroid.base.BaseAppRepository
+import com.zhpan.library.base.BaseRepository
+import com.zhpan.library.network.ResponseMutableLiveData
+import com.zhpan.oneandroid.api.RetrofitCreator
 import com.zhpan.oneandroid.model.bean.User
 
 /**
@@ -11,10 +11,10 @@ import com.zhpan.oneandroid.model.bean.User
  *   Description:
  * </pre>
  */
-class LoginRepository : BaseAppRepository() {
-  suspend fun login(userName: String, password: String, loginLiveData: StateLiveData<User>) {
+class LoginRepository : BaseRepository() {
+  suspend fun login(userName: String, password: String, loginLiveData: ResponseMutableLiveData<User>) {
     executeRequest({
-      RetrofitCreator2.getLoginAPI().login(userName, password)
+      RetrofitCreator.getLoginAPI().login(userName, password)
     }, loginLiveData)
   }
 }

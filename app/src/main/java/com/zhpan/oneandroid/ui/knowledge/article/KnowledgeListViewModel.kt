@@ -1,10 +1,11 @@
 package com.zhpan.oneandroid.ui.knowledge.article
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.zhpan.library.base.BaseViewModel
-import com.zhpan.library.base.IFragmentHost
+import com.zhpan.library.network.ResponseLiveData
+import com.zhpan.library.network.ResponseMutableLiveData
 import com.zhpan.oneandroid.model.response.ArticleResponse
-
+import kotlinx.coroutines.launch
 
 /**
  * <pre>
@@ -12,13 +13,17 @@ import com.zhpan.oneandroid.model.response.ArticleResponse
  *   Description:
  * </pre>
  */
-class KnowledgeListViewModel(private var repository: KnowledgeListRepository) : BaseViewModel() {
-    fun getKnowledgeArticles(
-        iFragmentHost: IFragmentHost,
-        boolean: Boolean,
-        page: Int,
-        cid: String
-    ): MutableLiveData<ArticleResponse> {
-        return repository.getKnowledgeArticles(iFragmentHost, boolean, page, cid)
+class KnowledgeListViewModel() : BaseViewModel<KnowledgeListRepository>() {
+  private val _articleLiveData = ResponseMutableLiveData<ArticleResponse>()
+  val articleLiveData: ResponseLiveData<ArticleResponse> = _articleLiveData
+
+  fun getKnowledgeArticles(
+    boolean: Boolean,
+    page: Int,
+    cid: String
+  ) {
+    viewModelScope.launch {
+      repository.getKnowledgeArticles(boolean, page, cid, _articleLiveData)
     }
+  }
 }

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.annotation.IdRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.scwang.smart.refresh.footer.BallPulseFooter
 import com.scwang.smart.refresh.header.MaterialHeader
@@ -16,117 +18,127 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.scwang.smart.refresh.layout.constant.SpinnerStyle
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener
-import com.trello.rxlifecycle2.components.support.RxFragment
 import com.zhpan.library.R
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.cancel
+import com.zhpan.library.server.common.DataState.STATE_LOADING
 
 /**
- * <pre>
- *   Created by zhpan on 2020/7/5.
- *   Description:
- * </pre>
+ * @Description:
+ * @Author: zhangpan
+ * @Date: 2022/7/6 15:37
+ * @Email: pan.zhang@upuphone.com
  */
-abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : RxFragment(), IFragmentHost,
-    OnRefreshListener,
-    OnLoadMoreListener,
-    CoroutineScope by MainScope() {
-    protected var mBinding: VB? = null
-    protected var mViewModel: VM? = null
-    protected var mRefreshLayout: SmartRefreshLayout? = null
-    protected var page: Int = 0
-    private var isDataLoaded: Boolean = false
+abstract class BaseFragment<VM : BaseViewModel<*>, T : ViewDataBinding> : Fragment(),
+  OnRefreshListener,
+  OnLoadMoreListener {
+  protected var page: Int = 0
+  protected var mRefreshLayout: SmartRefreshLayout? = null
+  protected val mViewModel: VM by lazy {
+    createViewModel()
+  }
 
-    companion object {
-        const val DEFAULT_PAGE_SIZE = 20
+  private var isDataLoaded: Boolean = false
+  lateinit var mBinding: T
+
+  companion object {
+    const val DEFAULT_PAGE_SIZE = 20
+  }
+
+  /**
+   * layout id
+   */
+  abstract val layoutId: Int
+
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
+    mBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+    mBinding.lifecycleOwner = viewLifecycleOwner
+    mViewModel.loadingDataState.observe(viewLifecycleOwner, Observer {
+      when (it) {
+        STATE_LOADING ->
+          showLoading()
+        else ->
+          dismissLoading()
+      }
+    })
+    return mBinding.root
+  }
+
+  private fun dismissLoading() {
+    val activity = activity
+    if (activity is BaseActivity<*, *>) {
+      activity.dismissLoading()
     }
+  }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        if (mBinding == null) {
-            mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
-            initView()
-        }
-
-        return if (mBinding != null) {
-            mBinding!!.root.apply {
-                (parent as? ViewGroup)?.removeView(this)
-            }
-        } else {
-            return super.onCreateView(inflater, container, savedInstanceState)
-        }
+  private fun showLoading() {
+    val activity = activity
+    if (activity is BaseActivity<*, *>) {
+      activity.showLoading()
     }
+  }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        mBinding?.lifecycleOwner = this
+  override fun onResume() {
+    super.onResume()
+    // 处理懒加载
+    if (!isDataLoaded) {
+      isDataLoaded = true
+      onLazyLoad()
     }
+  }
 
-    override fun onResume() {
-        super.onResume()
-        // 处理懒加载
-        if (!isDataLoaded) {
-            isDataLoaded = true
-            onLazyLoad()
-        }
+  abstract fun onLazyLoad()
+
+  /**
+   * Create ViewModel
+   * @return ViewModel
+   */
+  @Suppress("UNCHECKED_CAST")
+  open fun createViewModel(): VM {
+    val findViewModelClass = findActualGenericsClass<VM>(BaseViewModel::class.java)
+      ?: return ViewModelProvider(this)[BaseViewModel::class.java] as VM
+    if (BaseAndroidViewModel::class.java.isAssignableFrom(findViewModelClass)) {
+      return ViewModelProvider(this, AppViewModelFactory(requireContext()))[findViewModelClass]
     }
+    return ViewModelProvider(this)[findViewModelClass]
+  }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        cancel()
-        mBinding?.unbind()
-
+  protected open fun setRefreshLayout(@IdRes resId: Int) {
+    mRefreshLayout = mBinding.root.findViewById(resId)
+    if (needRefreshHeader()) {
+      mRefreshLayout?.setRefreshHeader(getRefreshHeader())
+      mRefreshLayout?.setRefreshFooter(getRefreshFooter())
     }
+    mRefreshLayout?.setEnableLoadMore(true)
+    mRefreshLayout?.setOnRefreshListener(this)
+    mRefreshLayout?.setOnLoadMoreListener(this)
+  }
 
-    fun getViewModel(clazz: Class<VM>): VM {
-        return ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(clazz)
-    }
+  private fun getRefreshFooter(): RefreshFooter {
+    val ballFooter =
+      BallPulseFooter(requireContext()).setSpinnerStyle(SpinnerStyle.FixedBehind)
+    ballFooter.setAnimatingColor(requireContext().resources.getColor(R.color.colorPrimary))
+    return ballFooter
+  }
 
-    protected open fun setRefreshLayout(@IdRes resId: Int) {
-        mRefreshLayout = mBinding?.root?.findViewById<SmartRefreshLayout>(resId)
-        if (needRefreshHeader()) {
-            mRefreshLayout?.setRefreshHeader(getRefreshHeader())
-            mRefreshLayout?.setRefreshFooter(getRefreshFooter())
-        }
-        mRefreshLayout?.setEnableLoadMore(true)
-        mRefreshLayout?.setOnRefreshListener(this)
-        mRefreshLayout?.setOnLoadMoreListener(this)
-    }
+  protected open fun needRefreshHeader(): Boolean {
+    return true
+  }
 
-    private fun getRefreshFooter(): RefreshFooter {
-        val ballFooter =
-            BallPulseFooter(requireContext()).setSpinnerStyle(SpinnerStyle.FixedBehind)
-        ballFooter.setAnimatingColor(requireContext().resources.getColor(R.color.colorPrimary))
-        return ballFooter
-    }
+  //  获取刷新头
+  protected open fun getRefreshHeader(): MaterialHeader {
+    val materialHeader = MaterialHeader(context)
+    materialHeader.setColorSchemeResources(R.color.colorPrimaryDark)
+    return materialHeader
+  }
 
-    protected open fun needRefreshHeader(): Boolean {
-        return true
-    }
+  override fun onRefresh(refreshLayout: RefreshLayout) {
+    page = 0
+  }
 
-    //  获取刷新头
-    protected open fun getRefreshHeader(): MaterialHeader {
-        val materialHeader = MaterialHeader(context)
-        materialHeader.setColorSchemeResources(R.color.colorPrimaryDark)
-        return materialHeader
-    }
+  override fun onLoadMore(refreshLayout: RefreshLayout) {
 
-    override fun onRefresh(refreshLayout: RefreshLayout) {
-        page = 0
-    }
-
-    override fun onLoadMore(refreshLayout: RefreshLayout) {
-
-    }
-
-    abstract fun onLazyLoad()
-
-    abstract fun initView()
-
-    abstract fun getLayoutId(): Int
-
+  }
 }

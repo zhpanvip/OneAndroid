@@ -1,7 +1,7 @@
 package com.zhpan.library.base
 
 import androidx.lifecycle.MutableLiveData
-import com.zhpan.library.network.StateLiveData
+import com.zhpan.library.network.ResponseMutableLiveData
 import com.zhpan.library.server.common.BasicResponse
 import com.zhpan.library.server.common.DataState
 import java.lang.Exception
@@ -15,11 +15,11 @@ open class BaseRepository {
   /**
    * 发起请求
    * @param block 真正执行的函数回调
-   * @param stateLiveData 观察状态的LiveData
+   * @param responseLiveData 观察状态的LiveData
    */
   suspend fun <T : Any> executeRequest(
     block: suspend () -> BasicResponse<T>,
-    stateLiveData: StateLiveData<T>,
+    responseLiveData: ResponseMutableLiveData<T>,
     showLoading: Boolean = true
   ) {
     var response = BasicResponse<T>()
@@ -43,7 +43,7 @@ open class BaseRepository {
       response.dataState = DataState.STATE_ERROR
       response.exception = e
     } finally {
-      stateLiveData.postValue(response)
+      responseLiveData.postValue(response)
       if (showLoading) {
         loadingStateLiveData.postValue(DataState.STATE_FINISH)
       }

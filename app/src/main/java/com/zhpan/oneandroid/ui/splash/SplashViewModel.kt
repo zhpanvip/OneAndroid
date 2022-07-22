@@ -1,9 +1,9 @@
 package com.zhpan.oneandroid.ui.splash
 
 import com.zhpan.library.base.BaseRepository
-import com.zhpan.library.base.NewBaseViewModel
+import com.zhpan.library.base.BaseViewModel
 
-class SplashViewModel : NewBaseViewModel<BaseRepository>() {
+class SplashViewModel : BaseViewModel<BaseRepository>() {
   override fun createRepository(): BaseRepository {
     return BaseRepository()
   }

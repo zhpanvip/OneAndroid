@@ -1,8 +1,9 @@
 package com.zhpan.oneandroid.ui.home
 
 import androidx.lifecycle.viewModelScope
-import com.zhpan.library.base.NewBaseViewModel
-import com.zhpan.library.network.StateLiveData
+import com.zhpan.library.base.BaseViewModel
+import com.zhpan.library.network.ResponseLiveData
+import com.zhpan.library.network.ResponseMutableLiveData
 import com.zhpan.oneandroid.model.response.ArticleResponse
 import com.zhpan.oneandroid.model.bean.BannerBean
 import kotlinx.coroutines.launch
@@ -13,20 +14,22 @@ import kotlinx.coroutines.launch
  *   Description:
  * </pre>
  */
-class HomeViewModel() : NewBaseViewModel<HomeRepository>() {
+class HomeViewModel : BaseViewModel<HomeRepository>() {
 
-  var bannerLiveData: StateLiveData<List<BannerBean>> = StateLiveData()
-  var articleLiveData: StateLiveData<ArticleResponse> = StateLiveData()
+  private var _bannerLiveData = ResponseMutableLiveData<List<BannerBean>>()
+  var bannerLiveData: ResponseLiveData<List<BannerBean>> = _bannerLiveData
+  private var _articleLiveData = ResponseMutableLiveData<ArticleResponse>()
+  var articleLiveData: ResponseLiveData<ArticleResponse> = _articleLiveData
 
   fun getHomeArticles(page: Int, showLoading: Boolean) {
     viewModelScope.launch {
-      repository.getHomeArticles(page, articleLiveData, showLoading)
+      repository.getHomeArticles(page, _articleLiveData, showLoading)
     }
   }
 
   fun getBannerData() {
     viewModelScope.launch {
-      repository.getBannerData(bannerLiveData)
+      repository.getBannerData(_bannerLiveData)
     }
   }
 

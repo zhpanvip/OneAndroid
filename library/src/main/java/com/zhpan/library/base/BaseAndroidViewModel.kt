@@ -9,4 +9,4 @@ import android.content.Context
  * @Date: 2022/7/7 14:37
  * @Email: pan.zhang@upuphone.com
  */
-abstract class BaseAndroidViewModel<T : BaseRepository>(@field:SuppressLint("StaticFieldLeak") var context: Context) : NewBaseViewModel<T>()
+abstract class BaseAndroidViewModel<T : BaseRepository>(@field:SuppressLint("StaticFieldLeak") var context: Context) : BaseViewModel<T>()

@@ -1,12 +1,9 @@
 package com.zhpan.oneandroid.ui.knowledge.article
 
-import androidx.lifecycle.MutableLiveData
-import com.zhpan.library.base.IFragmentHost
-import com.zhpan.library.server.common.ResponseObserver
-import com.zhpan.oneandroid.base.BaseAppRepository
+import com.zhpan.library.base.BaseRepository
+import com.zhpan.library.network.ResponseMutableLiveData
+import com.zhpan.oneandroid.api.RetrofitCreator
 import com.zhpan.oneandroid.model.response.ArticleResponse
-import com.zhpan.oneandroid.utils.RxUtils
-
 
 /**
  * <pre>
@@ -14,27 +11,16 @@ import com.zhpan.oneandroid.utils.RxUtils
  *   Description:
  * </pre>
  */
-class KnowledgeListRepository : BaseAppRepository() {
-    val liveData: MutableLiveData<ArticleResponse> = MutableLiveData()
-    fun getKnowledgeArticles(
-        iFragmentHost: IFragmentHost,
-        boolean: Boolean,
-        page: Int,
-        cid: String
-    ): MutableLiveData<ArticleResponse> {
+class KnowledgeListRepository : BaseRepository() {
 
-        getApiService().getKnowledgeArticles(page, cid)
-            .compose(RxUtils.rxSchedulerHelper(iFragmentHost, showLoading = boolean))
-            .subscribe(object : ResponseObserver<ArticleResponse>() {
-                override fun onSuccess(response: ArticleResponse?) {
-                    liveData.value = response
-                }
-
-                override fun onFail(errorCode: Int, message: String?) {
-                    super.onFail(errorCode, message)
-                    liveData.value = null
-                }
-            })
-        return liveData
-    }
+  suspend fun getKnowledgeArticles(
+    showLoading: Boolean,
+    page: Int,
+    cid: String,
+    responseLiveData: ResponseMutableLiveData<ArticleResponse>
+  ) {
+    executeRequest({
+      RetrofitCreator.getLoginAPI().getKnowledgeArticles(page, cid)
+    }, responseLiveData,showLoading)
+  }
 }

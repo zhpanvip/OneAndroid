@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.scwang.smart.refresh.layout.api.RefreshLayout
 import com.zhpan.bannerview.BannerViewPager
-import com.zhpan.library.base.NewBaseFragment
+import com.zhpan.library.base.BaseFragment
 import com.zhpan.library.base.WebViewActivity
 import com.zhpan.library.network.ResponseObserver
 import com.zhpan.oneandroid.R
@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.layout_article_list.*
  * </pre>
  */
 class HomeFragment(override val layoutId: Int = R.layout.layout_article_list) :
-  NewBaseFragment<HomeViewModel, LayoutArticleListBinding>() {
+  BaseFragment<HomeViewModel, LayoutArticleListBinding>() {
 
   companion object {
     fun getInstance(): HomeFragment {
@@ -92,7 +92,6 @@ class HomeFragment(override val layoutId: Int = R.layout.layout_article_list) :
 
   private fun fetchArticles(isRefresh: Boolean, showLoading: Boolean) {
     mViewModel.getHomeArticles(page, showLoading)
-
     mViewModel.articleLiveData.observe(this, object : ResponseObserver<ArticleResponse>() {
       override fun onSuccess(data: ArticleResponse?) {
         mBinding.adapter?.apply {

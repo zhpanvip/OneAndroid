@@ -1,11 +1,11 @@
 package com.zhpan.oneandroid.ui.project.list
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.zhpan.library.base.BaseViewModel
-import com.zhpan.library.base.IFragmentHost
-import com.zhpan.oneandroid.model.bean.ProjectBean
+import com.zhpan.library.network.ResponseLiveData
+import com.zhpan.library.network.ResponseMutableLiveData
 import com.zhpan.oneandroid.model.response.ProjectResponse
-
+import kotlinx.coroutines.launch
 
 /**
  * <pre>
@@ -13,13 +13,17 @@ import com.zhpan.oneandroid.model.response.ProjectResponse
  *   Description:
  * </pre>
  */
-class ProjectListViewModel(private var repository: ProjectListRepository) : BaseViewModel() {
-    fun getProjectList(
-        iFragment: IFragmentHost,
-        showLoading: Boolean,
-        page: Int,
-        cid: String
-    ): MutableLiveData<ProjectResponse> {
-        return repository.getProjectList(iFragment, showLoading, page, cid)
+class ProjectListViewModel() : BaseViewModel<ProjectListRepository>() {
+  private val _responseLiveData = ResponseMutableLiveData<ProjectResponse>()
+  val responseLiveData: ResponseLiveData<ProjectResponse> = _responseLiveData
+
+  fun getProjectList(
+    showLoading: Boolean,
+    page: Int,
+    cid: String
+  ) {
+    viewModelScope.launch {
+      repository.getProjectList(_responseLiveData, showLoading, page, cid)
     }
+  }
 }

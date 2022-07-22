@@ -1,8 +1,9 @@
 package com.zhpan.oneandroid.ui.login
 
 import androidx.lifecycle.viewModelScope
-import com.zhpan.library.base.NewBaseViewModel
-import com.zhpan.library.network.StateLiveData
+import com.zhpan.library.base.BaseViewModel
+import com.zhpan.library.network.ResponseLiveData
+import com.zhpan.library.network.ResponseMutableLiveData
 import com.zhpan.oneandroid.model.bean.User
 import kotlinx.coroutines.launch
 
@@ -12,15 +13,16 @@ import kotlinx.coroutines.launch
  *   Description:
  * </pre>
  */
-class LoginViewModel : NewBaseViewModel<LoginRepository>() {
+class LoginViewModel : BaseViewModel<LoginRepository>() {
 
-  var loginLiveData = StateLiveData<User>()
+  private var _loginLiveData = ResponseMutableLiveData<User>()
+  var loginLiveData: ResponseLiveData<User> = _loginLiveData
 
   var loginBtnEnable: Boolean = false
 
   fun login(userName: String, password: String) {
     viewModelScope.launch {
-      repository.login(userName, password, loginLiveData)
+      repository.login(userName, password, _loginLiveData)
     }
   }
 

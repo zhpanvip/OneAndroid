@@ -1,10 +1,11 @@
 package com.zhpan.oneandroid.ui.square
 
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.zhpan.library.base.BaseViewModel
-import com.zhpan.library.base.IFragmentHost
+import com.zhpan.library.network.ResponseLiveData
+import com.zhpan.library.network.ResponseMutableLiveData
 import com.zhpan.oneandroid.model.response.ArticleResponse
-
+import kotlinx.coroutines.launch
 
 /**
  * <pre>
@@ -12,13 +13,16 @@ import com.zhpan.oneandroid.model.response.ArticleResponse
  *   Description:
  * </pre>
  */
-class SquareViewModel(private var repository: SquareRepository) : BaseViewModel() {
-    fun getSquareArticles(
-        host: IFragmentHost,
-        page: Int,
-        showLoading: Boolean
-    ): MutableLiveData<ArticleResponse> {
+class SquareViewModel() : BaseViewModel<SquareRepository>() {
+  private val _responseLiveData = ResponseMutableLiveData<ArticleResponse>()
+  val responseLiveData: ResponseLiveData<ArticleResponse> = _responseLiveData
 
-        return repository.getSquareArticles(page, host, showLoading)
+  fun getSquareArticles(
+    page: Int,
+    showLoading: Boolean
+  ) {
+    viewModelScope.launch {
+      repository.getSquareArticles(_responseLiveData, page, showLoading)
     }
+  }
 }
