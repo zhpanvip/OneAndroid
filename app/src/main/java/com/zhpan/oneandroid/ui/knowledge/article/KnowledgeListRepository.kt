@@ -2,7 +2,7 @@ package com.zhpan.oneandroid.ui.knowledge.article
 
 import com.zhpan.library.base.BaseRepository
 import com.zhpan.library.network.ResponseMutableLiveData
-import com.zhpan.oneandroid.api.RetrofitCreator
+import com.zhpan.oneandroid.api.RetrofitManager
 import com.zhpan.oneandroid.model.response.ArticleResponse
 
 /**
@@ -20,7 +20,7 @@ class KnowledgeListRepository : BaseRepository() {
     responseLiveData: ResponseMutableLiveData<ArticleResponse>
   ) {
     executeRequest({
-      RetrofitCreator.getLoginAPI().getKnowledgeArticles(page, cid)
+      RetrofitManager.getApiService().getKnowledgeArticles(page, cid)
     }, responseLiveData,showLoading)
   }
 }

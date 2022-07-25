@@ -10,13 +10,11 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.zhpan.bannerview.BannerViewPager;
-import com.zhpan.bannerview.constants.PageStyle;
 import com.zhpan.indicator.base.BaseIndicatorView;
 import com.zhpan.indicator.enums.IndicatorSlideMode;
 import com.zhpan.indicator.enums.IndicatorStyle;
 import com.zhpan.oneandroid.R;
 import com.zhpan.oneandroid.adapter.BannerAdapter;
-import com.zhpan.oneandroid.adapter.BannerViewHolder;
 import com.zhpan.oneandroid.model.bean.BannerBean;
 
 /**

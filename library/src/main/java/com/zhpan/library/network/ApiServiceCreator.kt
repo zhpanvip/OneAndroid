@@ -5,10 +5,5 @@ package com.zhpan.library.network
  * Description:
  */
 object ApiServiceCreator {
-  fun <T> getApiService(cls: Class<T>?, baseUrl: String): T {
-    val retrofit = RetrofitManager.getRetrofitBuilder(
-      baseUrl
-    ).build()
-    return retrofit.create(cls)
-  }
+
 }

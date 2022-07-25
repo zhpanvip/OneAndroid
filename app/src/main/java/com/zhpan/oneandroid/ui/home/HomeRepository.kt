@@ -2,7 +2,7 @@ package com.zhpan.oneandroid.ui.home
 
 import com.zhpan.library.base.BaseRepository
 import com.zhpan.library.network.ResponseMutableLiveData
-import com.zhpan.oneandroid.api.RetrofitCreator
+import com.zhpan.oneandroid.api.RetrofitManager
 import com.zhpan.oneandroid.model.response.ArticleResponse
 import com.zhpan.oneandroid.model.bean.BannerBean
 
@@ -20,13 +20,13 @@ class HomeRepository : BaseRepository() {
     showLoading:Boolean
   ) {
     executeRequest({
-      RetrofitCreator.getLoginAPI().getHomeArticles(page)
+      RetrofitManager.getApiService().getHomeArticles(page)
     }, responseLiveData,showLoading)
   }
 
   suspend fun getBannerData(bannerLiveData: ResponseMutableLiveData<List<BannerBean>>) {
     executeRequest({
-      RetrofitCreator.getLoginAPI().getBannerData()
+      RetrofitManager.getApiService().getBannerData()
     }, bannerLiveData)
   }
 }

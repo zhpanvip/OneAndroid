@@ -4,49 +4,65 @@
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-        <variable
-            name="article"
-            type="com.zhpan.oneandroid.model.bean.ArticleBean" />
-    </data>
+  <data>
+    <variable
+        name="article"
+        type="com.zhpan.oneandroid.model.bean.ArticleBean" />
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+    <import type="com.blankj.utilcode.util.TimeUtils" />
+    <import type="android.text.TextUtils" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="@dimen/dp_8">
+
+    <TextView
+        android:id="@+id/tv_author"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_16"
-        android:layout_marginTop="@dimen/dp_8"
-        android:layout_marginEnd="@dimen/dp_16"
-        android:layout_marginBottom="@dimen/dp_8"
-        bind:cardCornerRadius="@dimen/common_radius"
-        bind:cardElevation="@dimen/dp_3">
+        android:textSize="@dimen/sp_12"
+        android:text="@{TextUtils.isEmpty(article.shareUser)?article.author:article.shareUser}"
+        bind:layout_constraintTop_toTopOf="parent"
+        bind:layout_constraintStart_toStartOf="parent"
+        tools:text="author" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_100"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:padding="@dimen/dp_16">
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_12"
+        bind:layout_constraintTop_toTopOf="parent"
+        bind:layout_constraintEnd_toEndOf="parent"
+        android:text="@{article.niceDate}"
+        tools:text="2022-07-23" />
 
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="#000000"
-                android:textSize="@dimen/sp_18"
-                bind:text="@{article.title}"
-                tools:text="this is title" />
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:layout_marginTop="@dimen/dp_7"
+        android:maxLines="2"
+        android:textColor="#000000"
+        android:textSize="@dimen/sp_14"
+        bind:layout_constraintStart_toStartOf="parent"
+        bind:layout_constraintTop_toBottomOf="@+id/tv_author"
+        android:text="@{article.title}"
+        tools:text="this is title" />
 
-            <TextView
-                android:id="@+id/tv_auther"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
-                android:textSize="@dimen/sp_16"
-                bind:text="@{article.author}"
-                tools:text="this is title" />
+    <TextView
+        android:id="@+id/tv_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_12"
+        android:layout_marginTop="@dimen/dp_7"
+        android:text="@{article.superChapterName}"
+        bind:layout_constraintStart_toStartOf="parent"
+        bind:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:text="广场" />
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+  </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

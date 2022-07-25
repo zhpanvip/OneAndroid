@@ -2,7 +2,7 @@ package com.zhpan.oneandroid.ui.project
 
 import com.zhpan.library.base.BaseRepository
 import com.zhpan.library.network.ResponseMutableLiveData
-import com.zhpan.oneandroid.api.RetrofitCreator
+import com.zhpan.oneandroid.api.RetrofitManager
 import com.zhpan.oneandroid.model.bean.ProjectClassify
 
 /**
@@ -18,7 +18,7 @@ class ProjectRepository : BaseRepository() {
     showLoading: Boolean
   ) {
     executeRequest(
-      { RetrofitCreator.getLoginAPI().getProjectClassify() },
+      { RetrofitManager.getApiService().getProjectClassify() },
       responseLiveData,
       showLoading
     )

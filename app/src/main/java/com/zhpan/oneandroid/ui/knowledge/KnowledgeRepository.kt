@@ -2,7 +2,7 @@ package com.zhpan.oneandroid.ui.knowledge
 
 import com.zhpan.library.base.BaseRepository
 import com.zhpan.library.network.ResponseMutableLiveData
-import com.zhpan.oneandroid.api.RetrofitCreator
+import com.zhpan.oneandroid.api.RetrofitManager
 import com.zhpan.oneandroid.model.bean.KnowledgeBean
 
 /**
@@ -17,7 +17,7 @@ class KnowledgeRepository : BaseRepository() {
     showLoading: Boolean
   ) {
     executeRequest({
-      RetrofitCreator.getLoginAPI().getSystemClassify()
+      RetrofitManager.getApiService().getSystemClassify()
     }, responseLiveData, showLoading)
   }
 }

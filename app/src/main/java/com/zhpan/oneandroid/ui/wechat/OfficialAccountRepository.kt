@@ -2,7 +2,7 @@ package com.zhpan.oneandroid.ui.wechat
 
 import com.zhpan.library.base.BaseRepository
 import com.zhpan.library.network.ResponseMutableLiveData
-import com.zhpan.oneandroid.api.RetrofitCreator
+import com.zhpan.oneandroid.api.RetrofitManager
 import com.zhpan.oneandroid.model.bean.OfficialAccountBean
 
 /**
@@ -16,7 +16,7 @@ class OfficialAccountRepository : BaseRepository() {
     showLoading: Boolean
   ) {
     executeRequest(
-      { RetrofitCreator.getLoginAPI().getOfficialAccounts() },
+      { RetrofitManager.getApiService().getOfficialAccounts() },
       responseLiveData,
       showLoading
     )

@@ -3,9 +3,6 @@ package com.zhpan.library.network
 import android.util.Log
 import com.blankj.utilcode.util.Utils
 import com.zhpan.library.server.common.Config
-import com.zhpan.library.server.interceptor.HttpCacheInterceptor
-import com.zhpan.library.server.interceptor.HttpHeaderInterceptor
-import com.zhpan.library.server.interceptor.LoggingInterceptor
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -16,7 +13,7 @@ import java.util.concurrent.TimeUnit
 
 private const val TAG = "RetrofitManager"
 
-object RetrofitManager {
+object RetrofitCreator {
   private val cache = Cache(File(Utils.getApp().cacheDir, "cache"), 1024 * 1024 * 100) //100Mb
   private val mOkClient = OkHttpClient.Builder()
     .callTimeout(
@@ -45,10 +42,17 @@ object RetrofitManager {
 
     }).setLevel(HttpLoggingInterceptor.Level.BODY)).cache(cache).build()
 
-  fun getRetrofitBuilder(baseUrl: String): Retrofit.Builder {
+  private fun getRetrofitBuilder(baseUrl: String): Retrofit.Builder {
     return Retrofit.Builder()
       .baseUrl(baseUrl)
       .client(mOkClient)
       .addConverterFactory(GsonConverterFactory.create())
+  }
+
+  fun <T> createApiService(cls: Class<T>, baseUrl: String): T {
+    val retrofit = getRetrofitBuilder(
+      baseUrl
+    ).build()
+    return retrofit.create(cls)
   }
 }

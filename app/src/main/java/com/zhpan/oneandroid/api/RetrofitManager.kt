@@ -1,8 +1,8 @@
 package com.zhpan.oneandroid.api
 
-import com.zhpan.library.network.ApiServiceCreator
+import com.zhpan.library.network.RetrofitCreator
 
-object RetrofitCreator {
+object RetrofitManager {
 
 //  private var mApiService: ApiService? = null
 //  val apiService: ApiService
@@ -18,11 +18,12 @@ object RetrofitCreator {
 
   private var mApiService: ApiService? = null
 
-  fun getLoginAPI(): ApiService {
+  fun getApiService(): ApiService {
     if (mApiService == null) {
       mApiService =
-        ApiServiceCreator.getApiService(
-          ApiService::class.java, ServerConfig.BASE_URL
+        RetrofitCreator.createApiService(
+          ApiService::class.java,
+          ServerConfig.BASE_URL
         )
     }
     return mApiService!!

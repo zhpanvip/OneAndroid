@@ -2,7 +2,7 @@ package com.zhpan.oneandroid.ui.square
 
 import com.zhpan.library.base.BaseRepository
 import com.zhpan.library.network.ResponseMutableLiveData
-import com.zhpan.oneandroid.api.RetrofitCreator
+import com.zhpan.oneandroid.api.RetrofitManager
 import com.zhpan.oneandroid.model.response.ArticleResponse
 
 /**
@@ -18,7 +18,7 @@ class SquareRepository() : BaseRepository() {
     showLoading: Boolean
   ) {
     executeRequest(
-      { RetrofitCreator.getLoginAPI().getSquareArticles(page) },
+      { RetrofitManager.getApiService().getSquareArticles(page) },
       responseLiveData,
       showLoading
     )
